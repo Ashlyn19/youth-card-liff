@@ -12,10 +12,12 @@ body{
   background:#fff8f9;
   color:#3f3034;
 }
+
 .hero{
   padding:34px 22px 28px;
   background:linear-gradient(135deg,#ffe6ee,#fff7f9);
 }
+
 .hero-card{
   max-width:920px;
   margin:auto;
@@ -24,6 +26,7 @@ body{
   padding:28px;
   box-shadow:0 12px 32px rgba(210,120,150,.16);
 }
+
 .label{
   display:inline-block;
   background:#fff0f4;
@@ -33,26 +36,31 @@ body{
   font-size:13px;
   font-weight:700;
 }
+
 h1{
   margin:16px 0 10px;
   font-size:30px;
   line-height:1.35;
 }
+
 .hero p{
   color:#7b626b;
   line-height:1.8;
   font-size:15px;
 }
+
 .container{
   max-width:920px;
   margin:auto;
   padding:28px 18px 60px;
 }
+
 .grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:18px;
 }
+
 .card{
   background:#fff;
   border-radius:26px;
@@ -60,6 +68,7 @@ h1{
   box-shadow:0 10px 24px rgba(210,130,150,.12);
   border:1px solid #ffe4ec;
 }
+
 .icon{
   width:54px;
   height:54px;
@@ -71,20 +80,24 @@ h1{
   font-size:24px;
   margin-bottom:14px;
 }
+
 .card h2{
   font-size:20px;
   margin:0 0 8px;
 }
+
 .desc{
   font-size:14px;
   color:#7d6770;
   line-height:1.7;
   margin-bottom:16px;
 }
+
 .list{
   display:grid;
   gap:10px;
 }
+
 .item{
   background:#fff7f9;
   border-radius:16px;
@@ -92,9 +105,11 @@ h1{
   font-size:14px;
   line-height:1.6;
 }
+
 .item b{
   color:#b95776;
 }
+
 .button{
   margin-top:16px;
   display:block;
@@ -105,16 +120,24 @@ h1{
   padding:13px;
   border-radius:16px;
   font-weight:700;
+  transition:.2s;
 }
+
+.button:hover{
+  opacity:.9;
+}
+
 .full{
   grid-column:1 / -1;
 }
+
 .unlock{
   background:linear-gradient(135deg,#ffe7ef,#ffffff);
   border-radius:28px;
   padding:26px;
   border:1px solid #ffdbe6;
 }
+
 .progress{
   background:#f4d7e0;
   height:12px;
@@ -122,17 +145,20 @@ h1{
   overflow:hidden;
   margin:14px 0;
 }
+
 .progress-fill{
   width:0%;
   height:100%;
   background:linear-gradient(90deg,#df8aa3,#c96584);
 }
+
 .badges{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
   margin-top:14px;
 }
+
 .badge{
   background:#fff;
   color:#b95776;
@@ -141,16 +167,19 @@ h1{
   font-size:13px;
   font-weight:700;
 }
+
 .footer{
   text-align:center;
   margin-top:34px;
   font-size:13px;
   color:#8a737a;
 }
+
 @media(max-width:720px){
   .grid{
     grid-template-columns:1fr;
   }
+
   h1{
     font-size:26px;
   }
@@ -162,112 +191,274 @@ h1{
 
 <section class="hero">
   <div class="hero-card">
+
     <span class="label">Pre-Youth Card Hub</span>
+
     <h1>預備卡專區</h1>
+
     <p>
-      這裡是青年進入社會前的生活導航中心。整合租屋生活、職涯打工、
-      財務管理、心理支持、公共參與與正式青年卡解鎖資訊，協助青年建立
-      成年準備能力。
+      提供青年進入社會前所需之生活、職涯、
+      財務、心理與公共參與資源，
+      協助青年建立成年準備能力與社會適應能力。
     </p>
+
   </div>
 </section>
 
 <main class="container">
 
-  <div class="grid">
+<div class="grid">
 
-    <div class="card">
-      <div class="icon">⌂</div>
-      <h2>一、租屋與生活資訊</h2>
-      <p class="desc">協助青年建立基本居住安全與生活自理能力。</p>
-      <div class="list">
-        <div class="item"><b>租屋補助：</b>中央租金補貼、臺北市租屋補助資訊。</div>
-        <div class="item"><b>租屋安全：</b>看房 Checklist、租約確認、防詐提醒。</div>
-        <div class="item"><b>生活工具：</b>YouBike、TPASS、社宅與青年生活資源。</div>
-      </div>
-      <a class="button" href="#">查看租屋生活指南</a>
-    </div>
+<!-- 租屋 -->
 
-    <div class="card">
-      <div class="icon">▣</div>
-      <h2>二、職涯與打工資源</h2>
-      <p class="desc">協助青年認識職涯方向、打工權益與就業準備。</p>
-      <div class="list">
-        <div class="item"><b>履歷健檢：</b>協助檢視履歷內容與職涯定位。</div>
-        <div class="item"><b>打工勞權：</b>工讀權益、最低薪資、勞健保基本概念。</div>
-        <div class="item"><b>職涯探索：</b>面試技巧、職場軟實力與職涯講座。</div>
-      </div>
-      <a class="button" href="#">查看職涯資源</a>
-    </div>
+<div class="card">
 
-    <div class="card">
-      <div class="icon">＄</div>
-      <h2>三、財務與生活管理</h2>
-      <p class="desc">建立青年基本財務觀念與生活規劃能力。</p>
-      <div class="list">
-        <div class="item"><b>新手理財：</b>記帳、存錢、預算分配與信用觀念。</div>
-        <div class="item"><b>金融防詐：</b>辨識詐騙、保護帳戶與個資安全。</div>
-        <div class="item"><b>生活模擬：</b>用月收入試算租屋、交通、飲食與儲蓄。</div>
-      </div>
-      <a class="button" href="#">開始生活模擬</a>
-    </div>
+<div class="icon">⌂</div>
 
-    <div class="card">
-      <div class="icon">♡</div>
-      <h2>四、心理支持與自我成長</h2>
-      <p class="desc">提供青年情緒支持、自我探索與壓力調適資源。</p>
-      <div class="list">
-        <div class="item"><b>最近還好嗎：</b>壓力檢測、自我覺察與情緒整理。</div>
-        <div class="item"><b>心理資源：</b>諮商資源、支持管道與求助資訊。</div>
-        <div class="item"><b>探索測驗：</b>了解自己的成長型人格與適合任務。</div>
-      </div>
-      <a class="button" href="#">進入自我探索</a>
-    </div>
+<h2>一、租屋與生活資訊</h2>
 
-    <div class="card">
-      <div class="icon">✦</div>
-      <h2>五、公共參與與志工資源</h2>
-      <p class="desc">引導青年參與公共事務，建立社會連結與責任感。</p>
-      <div class="list">
-        <div class="item"><b>志工服務：</b>志工招募、服務時數與公益活動資訊。</div>
-        <div class="item"><b>公共參與：</b>青年論壇、公民討論與政策參與活動。</div>
-        <div class="item"><b>任務連動：</b>完成志工或公共活動可對應青年任務。</div>
-      </div>
-      <a class="button" href="#">查看參與機會</a>
-    </div>
+<p class="desc">
+協助青年建立基本居住安全與生活自理能力。
+</p>
 
-    <div class="card full unlock">
-      <div class="icon">✓</div>
-      <h2>七、正式青年卡解鎖區</h2>
-      <p class="desc">
-        預備卡是正式青年卡前的準備階段。青年可透過任務參與、活動回報與能力累積，
-        逐步解鎖正式青年卡資格。
-      </p>
+<div class="list">
 
-      <div class="list">
-        <div class="item"><b>解鎖條件：</b>完成 6 項青年任務。</div>
-        <div class="item"><b>累積內容：</b>任務紀錄、Beta Points、徽章與能力分析。</div>
-        <div class="item"><b>解鎖後可獲得：</b>青年卡福利、活動資格、城市探索權益與成長履歷。</div>
-      </div>
+<div class="item">
+<b>租屋補助：</b>
+中央租金補貼、臺北市租屋補助資訊。
+</div>
 
-      <div class="progress">
-        <div class="progress-fill"></div>
-      </div>
+<div class="item">
+<b>租屋安全：</b>
+看房 Checklist、租約確認、防詐提醒。
+</div>
 
-      <div class="badges">
-        <div class="badge">預備青年卡</div>
-        <div class="badge">任務進度 0 / 6</div>
-        <div class="badge">尚未解鎖正式青年卡</div>
-      </div>
+<div class="item">
+<b>生活工具：</b>
+YouBike、TPASS、社宅與青年生活資源。
+</div>
 
-      <a class="button" href="#">查看我的解鎖進度</a>
-    </div>
+</div>
 
-  </div>
+<a class="button"
+href="https://rent-allowance.udd.gov.taipei/"
+target="_blank">
+查看租屋生活指南
+</a>
 
-  <div class="footer">
-    Beta 青年卡｜成年準備 × 城市參與 × 青年成長
-  </div>
+</div>
+
+<!-- 職涯 -->
+
+<div class="card">
+
+<div class="icon">▣</div>
+
+<h2>二、職涯與打工資源</h2>
+
+<p class="desc">
+協助青年認識職涯方向、打工權益與就業準備。
+</p>
+
+<div class="list">
+
+<div class="item">
+<b>履歷健檢：</b>
+協助檢視履歷內容與職涯定位。
+</div>
+
+<div class="item">
+<b>打工勞權：</b>
+工讀權益、最低薪資、勞健保基本概念。
+</div>
+
+<div class="item">
+<b>職涯探索：</b>
+面試技巧、職場軟實力與職涯講座。
+</div>
+
+</div>
+
+<a class="button"
+href="https://ys.wda.gov.tw/"
+target="_blank">
+查看職涯資源
+</a>
+
+</div>
+
+<!-- 財務 -->
+
+<div class="card">
+
+<div class="icon">＄</div>
+
+<h2>三、財務與生活管理</h2>
+
+<p class="desc">
+建立青年基本財務觀念與生活規劃能力。
+</p>
+
+<div class="list">
+
+<div class="item">
+<b>新手理財：</b>
+記帳、存錢、預算分配與信用觀念。
+</div>
+
+<div class="item">
+<b>金融防詐：</b>
+辨識詐騙、保護帳戶與個資安全。
+</div>
+
+<div class="item">
+<b>生活管理：</b>
+銀行開戶、保險、基本財務規劃。
+</div>
+
+</div>
+
+<a class="button"
+href="https://www.fsc.gov.tw/ch/home.jsp?id=3&parentpath=0"
+target="_blank">
+查看金融知識資源
+</a>
+
+</div>
+
+<!-- 心理 -->
+
+<div class="card">
+
+<div class="icon">♡</div>
+
+<h2>四、心理支持與自我成長</h2>
+
+<p class="desc">
+提供青年情緒支持、自我探索與壓力調適資源。
+</p>
+
+<div class="list">
+
+<div class="item">
+<b>最近還好嗎：</b>
+壓力檢測、自我覺察與情緒整理。
+</div>
+
+<div class="item">
+<b>心理資源：</b>
+諮商資源、支持管道與求助資訊。
+</div>
+
+<div class="item">
+<b>探索測驗：</b>
+了解自己的成長型人格與適合任務。
+</div>
+
+</div>
+
+<a class="button"
+href="https://mental-health.gov.taipei/"
+target="_blank">
+查看心理支持資源
+</a>
+
+</div>
+
+<!-- 志工 -->
+
+<div class="card">
+
+<div class="icon">✦</div>
+
+<h2>五、公共參與與志工資源</h2>
+
+<p class="desc">
+引導青年參與公共事務，建立社會連結與責任感。
+</p>
+
+<div class="list">
+
+<div class="item">
+<b>志工服務：</b>
+志工招募、服務時數與公益活動資訊。
+</div>
+
+<div class="item">
+<b>公共參與：</b>
+青年論壇、公民討論與政策參與活動。
+</div>
+
+<div class="item">
+<b>任務連動：</b>
+完成志工或公共活動可對應青年任務。
+</div>
+
+</div>
+
+<a class="button"
+href="https://newcv101.gov.taipei/"
+target="_blank">
+查看志工與公共參與
+</a>
+
+</div>
+
+<!-- 解鎖 -->
+
+<div class="card full unlock">
+
+<div class="icon">✓</div>
+
+<h2>七、正式青年卡解鎖區</h2>
+
+<p class="desc">
+預備卡為正式青年卡前的準備階段，
+青年可透過任務參與與能力累積，
+逐步解鎖正式青年卡資格。
+</p>
+
+<div class="list">
+
+<div class="item">
+<b>解鎖條件：</b>
+完成 6 項青年任務。
+</div>
+
+<div class="item">
+<b>累積內容：</b>
+任務紀錄、Beta Points、徽章與能力分析。
+</div>
+
+<div class="item">
+<b>解鎖後可獲得：</b>
+青年卡福利、活動資格與城市探索權益。
+</div>
+
+</div>
+
+<div class="progress">
+<div class="progress-fill"></div>
+</div>
+
+<div class="badges">
+<div class="badge">預備青年卡</div>
+<div class="badge">任務進度 0 / 6</div>
+<div class="badge">尚未解鎖正式青年卡</div>
+</div>
+
+<a class="button"
+href="index.html">
+查看我的解鎖進度
+</a>
+
+</div>
+
+</div>
+
+<div class="footer">
+Beta 青年卡｜成年準備 × 城市參與 × 青年成長
+</div>
 
 </main>
 
