@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>利益生成者｜社交連結任務</title>
+<title>青年任務回報系統</title>
 
 <style>
+
 body{
   margin:0;
   background:#fff8f9;
@@ -18,8 +19,8 @@ body{
   background:linear-gradient(135deg,#ffe7ef,#fff7f9);
 }
 
-.hero-card,.card{
-  max-width:920px;
+.hero-card,.panel{
+  max-width:950px;
   margin:auto;
   background:#fff;
   border-radius:30px;
@@ -45,7 +46,7 @@ h1{
 h2{
   margin:0 0 18px;
   color:#b95776;
-  font-size:22px;
+  font-size:24px;
 }
 
 p{
@@ -54,34 +55,88 @@ p{
 }
 
 .container{
-  max-width:920px;
+  max-width:950px;
   margin:auto;
   padding:24px 18px 60px;
 }
 
+.task-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.task-btn{
+  border:none;
+  border-radius:22px;
+  background:#fff;
+  border:1px solid #ffe0ea;
+  box-shadow:0 8px 20px rgba(210,130,150,.10);
+  padding:20px;
+  text-align:left;
+  cursor:pointer;
+  font-family:inherit;
+}
+
+.task-btn:hover,
+.task-btn.active{
+  background:#fff0f4;
+  border-color:#df8aa3;
+}
+
+.task-title{
+  font-weight:800;
+  color:#3f3034;
+  margin-bottom:8px;
+  line-height:1.5;
+}
+
+.task-level{
+  display:inline-block;
+  background:#ffe5ee;
+  color:#b95776;
+  border-radius:999px;
+  padding:5px 12px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.verify-card{
+  margin-top:24px;
+  background:#fff;
+  border-radius:30px;
+  padding:28px;
+  box-shadow:0 10px 24px rgba(210,130,150,.12);
+  border:1px solid #ffe4ec;
+  display:none;
+}
+
 .section{
+  background:#fff7f9;
+  border:1px solid #ffe0ea;
+  border-radius:22px;
+  padding:20px;
   margin-bottom:22px;
 }
 
 .invite-box{
-  background:#fff7f9;
-  border:1px solid #ffe0ea;
-  border-radius:24px;
-  padding:22px;
+  background:#fff;
+  border-radius:22px;
+  padding:20px;
+  border:1px solid #f4d7e0;
 }
 
 .code{
-  font-size:24px;
+  font-size:26px;
   font-weight:800;
   color:#b95776;
-  margin:10px 0;
+  margin:12px 0;
 }
 
 .link{
-  word-break:break-all;
-  color:#8a5b6b;
   font-size:14px;
-  margin-top:10px;
+  word-break:break-all;
+  color:#7f5d68;
 }
 
 .progress{
@@ -106,7 +161,7 @@ p{
   margin-top:18px;
 }
 
-button{
+.action-btn{
   border:none;
   border-radius:16px;
   padding:14px;
@@ -114,15 +169,14 @@ button{
   color:#fff;
   font-weight:700;
   cursor:pointer;
-  font-size:15px;
 }
 
 .form-card{
   background:#fff;
-  border-radius:28px;
-  padding:24px;
-  box-shadow:0 10px 24px rgba(210,130,150,.12);
-  border:1px solid #ffe4ec;
+  border-radius:24px;
+  padding:22px;
+  margin-top:20px;
+  border:1px solid #f4d7e0;
 }
 
 .field{
@@ -185,6 +239,7 @@ input,select{
 
 @media(max-width:720px){
 
+.task-grid,
 .button-group{
 grid-template-columns:1fr;
 }
@@ -194,6 +249,7 @@ font-size:28px;
 }
 
 }
+
 </style>
 </head>
 
@@ -204,16 +260,16 @@ font-size:28px;
 <div class="hero-card">
 
 <span class="label">
-Referral Mission
+Task Verification
 </span>
 
 <h1>
-利益生成者｜社交連結任務
+青年任務回報系統
 </h1>
 
 <p>
-邀請 1 位青年完成青年卡有效註冊，
-即可完成社交連結任務並獲得「利益生成者」Badge。
+請先選擇任務後查看對應驗證方式，
+完成後系統將更新任務進度與青年 Badge。
 </p>
 
 </div>
@@ -222,14 +278,128 @@ Referral Mission
 
 <main class="container">
 
-<div class="card section">
+<div class="panel">
 
-<h2>青年 A 任務頁面</h2>
+<h2>
+13 項青年任務
+</h2>
+
+<div class="task-grid">
+
+<button class="task-btn active" onclick="showReferralTask(this)">
+<div class="task-title">
+利益生成者｜影響力擴散任務
+</div>
+<span class="task-level">
+基礎
+</span>
+</button>
+
+<button class="task-btn">
+<div class="task-title">
+議程設定者｜公共參與任務
+</div>
+<span class="task-level">
+基礎
+</span>
+</button>
+
+<button class="task-btn">
+<div class="task-title">
+風險判讀者｜辨識風險與詐騙防治
+</div>
+<span class="task-level">
+中階
+</span>
+</button>
+
+<button class="task-btn">
+<div class="task-title">
+自律養成者｜挑戰自我極限
+</div>
+<span class="task-level">
+中階
+</span>
+</button>
+
+<button class="task-btn">
+<div class="task-title">
+利他熱情者｜社會參與任務
+</div>
+<span class="task-level">
+中階
+</span>
+</button>
+
+<button class="task-btn">
+<div class="task-title">
+急救守護者｜基礎救護任務
+</div>
+<span class="task-level">
+中階
+</span>
+</button>
+
+<button class="task-btn">
+<div class="task-title">
+知識累積者｜閱讀養成任務
+</div>
+<span class="task-level">
+中階
+</span>
+</button>
+
+<button class="task-btn">
+<div class="task-title">
+文化體驗者｜文化參與任務
+</div>
+<span class="task-level">
+困難
+</span>
+</button>
+
+<button class="task-btn">
+<div class="task-title">
+自我成長者｜能力提升任務
+</div>
+<span class="task-level">
+困難
+</span>
+</button>
+
+</div>
+
+</div>
+
+<!-- 利益生成者 -->
+
+<div id="referralTask" class="verify-card" style="display:block;">
+
+<h2>
+利益生成者｜社交連結任務
+</h2>
+
+<div class="section">
+
+<p>
+青年 A 透過青年卡 APP 產生個人邀請碼或邀請連結，
+邀請青年 B 註冊青年卡。
+當 B 完成有效註冊後，
+系統即認定 A 完成社交連結任務，
+並新增 1 筆有效推薦紀錄。
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>
+青年 A 任務頁面
+</h2>
 
 <div class="invite-box">
 
 <p>
-利益生成者｜社交連結任務<br>
 邀請 1 位青年完成青年卡註冊，即可完成任務。
 </p>
 
@@ -241,25 +411,25 @@ Referral Mission
 目前進度：0 / 1
 </p>
 
-<div class="code" id="referralCode">
+<div class="code">
 TYC-U000128
 </div>
 
-<div class="link" id="referralLink">
+<div class="link">
 https://youthcard.taipei/register?ref=TYC-U000128
 </div>
 
 <div class="button-group">
 
-<button onclick="copyCode()">
+<button class="action-btn" onclick="copyCode()">
 複製邀請碼
 </button>
 
-<button onclick="shareLink()">
+<button class="action-btn" onclick="shareLink()">
 分享邀請連結
 </button>
 
-<button onclick="generateQR()">
+<button class="action-btn" onclick="generateQR()">
 產生邀請 QR Code
 </button>
 
@@ -271,67 +441,103 @@ https://youthcard.taipei/register?ref=TYC-U000128
 
 <div class="form-card">
 
-<h2>青年 B 註冊畫面</h2>
+<h2>
+青年 B 註冊畫面
+</h2>
 
 <div class="notice">
 
 你是透過好友邀請加入青年卡<br>
+
 推薦碼：
-<b id="showReferral">
+<b>
 TYC-U000128
 </b>
 
 </div>
 
 <div class="field">
-<label>姓名</label>
+<label>
+姓名
+</label>
 <input id="name" type="text">
 </div>
 
 <div class="field">
-<label>手機號碼</label>
+<label>
+手機號碼
+</label>
 <input id="phone" type="tel">
 </div>
 
 <div class="field">
-<label>Email</label>
+<label>
+Email
+</label>
 <input id="email" type="email">
 </div>
 
 <div class="field">
-<label>出生年月日</label>
+<label>
+出生年月日
+</label>
 <input id="birthday" type="date">
 </div>
 
 <div class="field">
-<label>與臺北關聯</label>
+
+<label>
+與臺北關聯
+</label>
 
 <select id="relation">
-<option value="">請選擇</option>
-<option>設籍臺北</option>
-<option>臺北就學</option>
-<option>臺北就業</option>
-<option>臺北居住</option>
+
+<option value="">
+請選擇
+</option>
+
+<option>
+設籍臺北
+</option>
+
+<option>
+臺北就學
+</option>
+
+<option>
+臺北就業
+</option>
+
+<option>
+臺北居住
+</option>
+
 </select>
 
 </div>
 
 <div class="field">
-<label>地址</label>
+<label>
+地址
+</label>
 <input id="address" type="text">
 </div>
 
 <div class="field">
-<label>學校或就業單位</label>
+<label>
+學校或就業單位
+</label>
 <input id="school" type="text">
 </div>
 
 <div class="field">
-<label>手機 OTP 驗證碼</label>
+<label>
+手機 OTP 驗證碼
+</label>
 <input id="otp" type="text" placeholder="輸入 6 碼驗證碼">
 </div>
 
-<button onclick="completeRegister()">
+<button class="action-btn" style="width:100%;" onclick="completeRegister()">
 完成有效註冊
 </button>
 
@@ -362,6 +568,8 @@ TYC-U000128
 
 </div>
 
+</div>
+
 <div class="footer">
 Beta 青年卡｜社交連結 × 有效推薦 × Badge 系統
 </div>
@@ -370,20 +578,34 @@ Beta 青年卡｜社交連結 × 有效推薦 × Badge 系統
 
 <script>
 
-const referralCode = "TYC-U000128";
+function showReferralTask(button){
+
+document.querySelectorAll(".task-btn").forEach(btn=>{
+btn.classList.remove("active");
+});
+
+button.classList.add("active");
+
+document.getElementById("referralTask").style.display = "block";
+
+document.getElementById("referralTask").scrollIntoView({
+behavior:"smooth"
+});
+
+}
 
 function copyCode(){
 
-navigator.clipboard.writeText(referralCode);
+navigator.clipboard.writeText("TYC-U000128");
 
-alert("已複製邀請碼：" + referralCode);
+alert("已複製邀請碼：TYC-U000128");
 
 }
 
 function shareLink(){
 
 navigator.clipboard.writeText(
-"https://youthcard.taipei/register?ref=" + referralCode
+"https://youthcard.taipei/register?ref=TYC-U000128"
 );
 
 alert("已複製邀請連結");
