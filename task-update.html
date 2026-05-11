@@ -245,6 +245,25 @@ input,select{
   cursor:pointer;
 }
 
+.verify-row{
+  display:flex;
+  gap:10px;
+}
+
+.verify-row input{
+  flex:1;
+}
+
+.verify-btn{
+  width:140px;
+  border:none;
+  border-radius:16px;
+  background:#fff0f4;
+  color:#b95776;
+  font-weight:700;
+  cursor:pointer;
+}
+
 #qrcode{
   margin-top:20px;
   display:flex;
@@ -265,11 +284,13 @@ input,select{
 grid-template-columns:1fr;
 }
 
-.phone-row{
+.phone-row,
+.verify-row{
 flex-direction:column;
 }
 
-.otp-btn{
+.otp-btn,
+.verify-btn{
 width:100%;
 height:50px;
 }
@@ -471,23 +492,17 @@ TYC-U000128
 </h2>
 
 <div class="notice">
-
 你是透過好友邀請加入青年卡
-
 </div>
 
 <div class="field">
-<label>
-姓名
-</label>
+<label>姓名</label>
 <input id="name" type="text">
 </div>
 
 <div class="field">
 
-<label>
-手機號碼
-</label>
+<label>手機號碼</label>
 
 <div class="phone-row">
 
@@ -502,24 +517,34 @@ TYC-U000128
 </div>
 
 <div class="field">
-<label>
-Email
-</label>
+
+<label>輸入驗證碼</label>
+
+<div class="verify-row">
+
+<input id="verifyCode" type="text" placeholder="輸入手機驗證碼">
+
+<button class="verify-btn" onclick="verifyOTP()">
+驗證
+</button>
+
+</div>
+
+</div>
+
+<div class="field">
+<label>Email</label>
 <input id="email" type="email">
 </div>
 
 <div class="field">
-<label>
-出生年月日
-</label>
+<label>出生年月日</label>
 <input id="birthday" type="date">
 </div>
 
 <div class="field">
 
-<label>
-與臺北關聯
-</label>
+<label>與臺北關聯</label>
 
 <select id="relation">
 
@@ -548,23 +573,17 @@ Email
 </div>
 
 <div class="field">
-<label>
-地址
-</label>
+<label>地址</label>
 <input id="address" type="text">
 </div>
 
 <div class="field">
-<label>
-學校或就業單位
-</label>
+<label>學校或就業單位</label>
 <input id="school" type="text">
 </div>
 
 <div class="field">
-<label>
-手機 OTP 驗證碼
-</label>
+<label>手機 OTP 驗證碼</label>
 <input id="otp" type="text" placeholder="輸入 6 碼驗證碼">
 </div>
 
@@ -649,6 +668,19 @@ return;
 }
 
 alert("驗證碼已傳送至：" + phone);
+
+}
+
+function verifyOTP(){
+
+const code = document.getElementById("verifyCode").value;
+
+if(!code){
+alert("請輸入驗證碼");
+return;
+}
+
+alert("驗證成功");
 
 }
 
