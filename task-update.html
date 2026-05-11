@@ -17,7 +17,7 @@ body{
   background:linear-gradient(135deg,#ffe6ee,#fff7f9);
 }
 .hero-card,.panel{
-  max-width:900px;
+  max-width:950px;
   margin:auto;
   background:#fff;
   border-radius:28px;
@@ -34,10 +34,15 @@ body{
   font-weight:700;
 }
 h1{margin:16px 0 10px;font-size:30px;}
-h2{font-size:21px;margin:0 0 16px;}
-p{color:#7b626b;line-height:1.8;font-size:15px;}
+h2{font-size:22px;margin:0 0 16px;}
+h3{margin:0 0 12px;font-size:18px;color:#b95776;}
+p{
+  color:#7b626b;
+  line-height:1.8;
+  font-size:15px;
+}
 .container{
-  max-width:900px;
+  max-width:950px;
   margin:auto;
   padding:28px 18px 60px;
 }
@@ -85,69 +90,105 @@ p{color:#7b626b;line-height:1.8;font-size:15px;}
   border:1px solid #ffe4ec;
   display:none;
 }
-.verify-box{
+.section{
   background:#fff7f9;
   border:1px solid #ffe0ea;
-  border-radius:20px;
-  padding:18px;
-  line-height:1.8;
-  color:#6f5a62;
+  border-radius:22px;
+  padding:20px;
   margin-bottom:20px;
 }
-.verify-box b{color:#b95776;}
-.field{margin-bottom:18px;}
-label{
-  display:block;
-  font-weight:700;
-  margin-bottom:9px;
+.section p{
+  margin:0;
 }
-input,select,textarea{
-  width:100%;
-  box-sizing:border-box;
-  border:1px solid #f2cbd5;
-  border-radius:16px;
-  padding:14px 15px;
-  font-size:15px;
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.info-item{
   background:#fff;
-  outline:none;
-  font-family:inherit;
-}
-textarea{
-  min-height:110px;
-  resize:vertical;
-}
-.upload{
-  border:1.5px dashed #efb8c6;
-  background:#fffafd;
-  border-radius:18px;
-  padding:24px 18px;
-  text-align:center;
-  color:#8b7278;
-}
-.submit{
-  width:100%;
-  border:none;
   border-radius:18px;
   padding:16px;
+  line-height:1.8;
+  font-size:14px;
+}
+.info-item b{
+  color:#b95776;
+}
+.progress-card{
+  background:#fff;
+  border-radius:20px;
+  padding:18px;
+  border:1px solid #f4d7e0;
+}
+.progress{
+  background:#f4d7e0;
+  height:12px;
+  border-radius:999px;
+  overflow:hidden;
+  margin:14px 0;
+}
+.progress-fill{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,#df8aa3,#c96584);
+}
+.button-group{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:18px;
+}
+.action-btn{
+  border:none;
+  border-radius:16px;
+  padding:14px;
   background:linear-gradient(135deg,#df8aa3,#c96584);
-  color:white;
-  font-size:18px;
+  color:#fff;
   font-weight:700;
   cursor:pointer;
 }
-.result{
-  display:none;
-  margin-top:20px;
-  background:#fff0f4;
-  border:1px solid #f3c5d0;
-  color:#9d5168;
+.step{
+  background:#fff;
   border-radius:18px;
-  padding:18px;
-  line-height:1.7;
-  font-weight:700;
+  padding:16px;
+  margin-bottom:14px;
 }
-.sub-course{
-  display:none;
+.step-title{
+  font-weight:800;
+  color:#b95776;
+  margin-bottom:8px;
+}
+.table{
+  overflow:auto;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:16px;
+  overflow:hidden;
+}
+th,td{
+  border:1px solid #f4d7e0;
+  padding:12px;
+  text-align:left;
+  font-size:14px;
+}
+th{
+  background:#fff0f4;
+  color:#b95776;
+}
+.badge{
+  display:inline-block;
+  background:#fff;
+  border:1px solid #f3c5d0;
+  color:#b95776;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+  margin-top:10px;
 }
 .footer{
   text-align:center;
@@ -156,8 +197,14 @@ textarea{
   color:#8a737a;
 }
 @media(max-width:720px){
-  .task-grid{grid-template-columns:1fr;}
-  h1{font-size:26px;}
+  .task-grid,
+  .button-group,
+  .info-grid{
+    grid-template-columns:1fr;
+  }
+  h1{
+    font-size:26px;
+  }
 }
 </style>
 </head>
@@ -169,8 +216,8 @@ textarea{
     <span class="label">Task Verification</span>
     <h1>任務回報驗證</h1>
     <p>
-      請先選擇你要回報的任務，系統會依照不同任務顯示對應的驗證方式。
-      送出後將進入審核流程，審核通過後更新任務進度與青年卡資格。
+      請選擇任務後查看對應驗證方式與任務流程。
+      系統將依照不同任務進行驗證、進度更新與 Badge 發放。
     </p>
   </div>
 </section>
@@ -178,296 +225,448 @@ textarea{
 <main class="container">
 
 <div class="panel">
-  <h2>請選擇回報任務</h2>
 
-  <div class="task-grid">
-    <button class="task-btn" onclick="selectTask('referral', this)">
-      <div class="task-title">利益生成者｜影響力擴散任務</div>
-      <span class="task-level">基礎</span>
-    </button>
+<h2>請選擇回報任務</h2>
 
-    <button class="task-btn" onclick="selectTask('vote', this)">
-      <div class="task-title">議程設定者｜公共參與任務</div>
-      <span class="task-level">基礎</span>
-    </button>
+<div class="task-grid">
 
-    <button class="task-btn" onclick="selectTask('risk', this)">
-      <div class="task-title">風險判讀者｜辨識風險與詐騙防治</div>
-      <span class="task-level">中階</span>
-    </button>
+<button class="task-btn" onclick="selectTask('referral', this)">
+  <div class="task-title">利益生成者｜影響力擴散任務</div>
+  <span class="task-level">基礎</span>
+</button>
 
-    <button class="task-btn" onclick="selectTask('sport', this)">
-      <div class="task-title">自律養成者｜挑戰自我極限</div>
-      <span class="task-level">中階</span>
-    </button>
+<button class="task-btn">
+  <div class="task-title">議程設定者｜公共參與任務</div>
+  <span class="task-level">基礎</span>
+</button>
 
-    <button class="task-btn" onclick="selectTask('volunteer', this)">
-      <div class="task-title">利他熱情者｜社會參與任務</div>
-      <span class="task-level">中階</span>
-    </button>
+<button class="task-btn">
+  <div class="task-title">風險判讀者｜辨識風險與詐騙防治</div>
+  <span class="task-level">中階</span>
+</button>
 
-    <button class="task-btn" onclick="selectTask('cpr', this)">
-      <div class="task-title">急救守護者｜基礎救護任務</div>
-      <span class="task-level">中階</span>
-    </button>
+<button class="task-btn">
+  <div class="task-title">自律養成者｜挑戰自我極限</div>
+  <span class="task-level">中階</span>
+</button>
 
-    <button class="task-btn" onclick="selectTask('reading', this)">
-      <div class="task-title">知識累積者｜閱讀養成任務</div>
-      <span class="task-level">中階</span>
-    </button>
+<button class="task-btn">
+  <div class="task-title">利他熱情者｜社會參與任務</div>
+  <span class="task-level">中階</span>
+</button>
 
-    <button class="task-btn" onclick="selectTask('culture', this)">
-      <div class="task-title">文化體驗者｜文化參與任務</div>
-      <span class="task-level">困難</span>
-    </button>
+<button class="task-btn">
+  <div class="task-title">急救守護者｜基礎救護任務</div>
+  <span class="task-level">中階</span>
+</button>
 
-    <button class="task-btn" onclick="selectTask('growth', this)">
-      <div class="task-title">自我成長者｜能力提升任務</div>
-      <span class="task-level">困難</span>
-    </button>
-  </div>
+<button class="task-btn">
+  <div class="task-title">知識累積者｜閱讀養成任務</div>
+  <span class="task-level">中階</span>
+</button>
+
+<button class="task-btn">
+  <div class="task-title">文化體驗者｜文化參與任務</div>
+  <span class="task-level">困難</span>
+</button>
+
+<button class="task-btn">
+  <div class="task-title">自我成長者｜能力提升任務</div>
+  <span class="task-level">困難</span>
+</button>
+
 </div>
 
-<div id="verifyCard" class="verify-card">
+</div>
 
-  <h2 id="selectedTitle">任務驗證</h2>
+<div id="referralCard" class="verify-card">
 
-  <div id="verifyBox" class="verify-box"></div>
+<h2>利益生成者｜社交連結任務</h2>
 
-  <div id="subCourseBox" class="field sub-course">
-    <label>選擇能力提升課程</label>
-    <select id="subCourse" onchange="changeSubCourse()">
-      <option value="">請選擇課程</option>
-      <option value="career">職場與軟實力</option>
-      <option value="finance">財務素養與生活管理</option>
-      <option value="mental">心理與自我成長</option>
-      <option value="speech">名人演講與拓展視野</option>
-      <option value="digital">數位與跨域技能</option>
-    </select>
-  </div>
+<div class="section">
+  <h3>任務內容</h3>
+  <p>
+    青年 A 透過青年卡 APP 產生個人邀請碼或邀請連結，
+    邀請青年 B 註冊青年卡。
+    當 B 完成有效註冊後，
+    系統即認定 A 完成社交連結任務，
+    並新增 1 筆有效推薦紀錄。
+  </p>
+</div>
 
-  <div id="subVerifyBox" class="verify-box sub-course"></div>
+<div class="section">
+  <h3>任務目的</h3>
+  <p>
+    測試青年卡是否具備同儕擴散能力，
+    確認青年是否願意主動向身邊朋友推薦青年卡制度，
+    並降低政府單向宣傳成本。
+  </p>
+</div>
 
-  <div class="field">
-    <label>姓名／暱稱</label>
-    <input type="text" placeholder="請輸入姓名或暱稱">
-  </div>
+<div class="section">
 
-  <div class="field">
-    <label>Email</label>
-    <input type="email" placeholder="請輸入 Email">
-  </div>
+<h3>APP 功能模組</h3>
 
-  <div class="field">
-    <label>任務完成日期</label>
-    <input type="date">
-  </div>
+<div class="info-grid">
 
-  <div class="field">
-    <label>上傳完成證明</label>
-    <div class="upload">
-      可上傳照片、截圖、證明文件、參與紀錄或 QR Code 畫面
-      <br><br>
-      <input type="file" accept="image/*,.pdf" multiple>
-    </div>
-  </div>
+<div class="info-item">
+<b>我的邀請碼</b><br>
+系統自動生成專屬推薦碼
+</div>
 
-  <div class="field">
-    <label>作品或活動連結</label>
-    <input type="url" placeholder="如有活動頁、作品連結、貼文連結，可貼在這裡">
-  </div>
+<div class="info-item">
+<b>一鍵分享連結</b><br>
+支援 LINE、IG、Messenger、Email
+</div>
 
-  <div class="field">
-    <label>任務心得</label>
-    <textarea placeholder="請簡短說明你完成了什麼、學到什麼，以及這次任務對你的幫助。"></textarea>
-  </div>
+<div class="info-item">
+<b>推薦進度追蹤</b><br>
+顯示目前有效推薦數
+</div>
 
-  <button class="submit" onclick="submitTask()">送出任務回報</button>
+<div class="info-item">
+<b>有效推薦驗證</b><br>
+驗證是否為有效新註冊
+</div>
 
-  <div id="result" class="result">
-    任務回報已送出。系統將進入審核流程，審核通過後會更新你的任務進度與青年卡資格。
-  </div>
+<div class="info-item">
+<b>Badge 發放</b><br>
+完成後發放利益生成者稱號
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>青年 A 任務頁面</h3>
+
+<div class="progress-card">
+
+<p>
+利益生成者｜社交連結任務<br>
+邀請 1 位青年完成青年卡註冊，即可完成任務。
+</p>
+
+<div class="progress">
+<div class="progress-fill"></div>
+</div>
+
+<p>
+目前進度：0 / 1
+</p>
+
+<p>
+我的邀請碼：
+<b>TYC-U000128</b>
+</p>
+
+<div class="button-group">
+
+<button class="action-btn">
+複製邀請碼
+</button>
+
+<button class="action-btn">
+分享邀請連結
+</button>
+
+<button class="action-btn">
+產生邀請 QR Code
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>青年 A 操作流程</h3>
+
+<div class="step">
+<div class="step-title">
+Step 1｜完成青年卡註冊
+</div>
+
+青年 A 完成基本註冊後，
+系統產生：
+<br><br>
+user_id：U000128<br>
+referral_code：TYC-U000128
+</div>
+
+<div class="step">
+<div class="step-title">
+Step 2｜進入社交連結任務
+</div>
+
+任務頁顯示：
+<br><br>
+・目前進度 0 / 1<br>
+・我的邀請碼<br>
+・分享按鈕<br>
+・QR Code 功能
+</div>
+
+<div class="step">
+<div class="step-title">
+Step 3｜分享給朋友 B
+</div>
+
+系統產生邀請連結：
+<br><br>
+youthcard.taipei/register?ref=TYC-U000128
+<br><br>
+可透過：
+LINE、Instagram、Messenger、Email、
+QR Code、校園掃碼分享。
+</div>
+
+<div class="step">
+<div class="step-title">
+Step 4｜B 點擊邀請連結
+</div>
+
+系統自動帶入：
+<br><br>
+ref = TYC-U000128
+<br><br>
+B 不需手動輸入推薦碼。
+</div>
+
+<div class="step">
+<div class="step-title">
+Step 5｜B 完成有效註冊
+</div>
+
+需完成：
+<br><br>
+姓名<br>
+手機號碼<br>
+Email<br>
+出生年月日<br>
+與臺北關聯<br>
+地址<br>
+學校或就業單位<br>
+個資同意<br>
+手機 OTP 驗證
+</div>
+
+<div class="step">
+<div class="step-title">
+Step 6｜系統判定推薦成功
+</div>
+
+系統確認：
+<br><br>
+・B 為新註冊者<br>
+・非 A 本人<br>
+・未重複註冊<br>
+・手機與 Email 未被使用<br>
+・符合青年卡資格<br>
+・帶入 A 推薦碼
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>推薦成功後 APP 顯示</h3>
+
+<div class="step">
+
+推薦成功 1／1<br>
+社交連結任務已完成
+
+<br><br>
+
+<span class="badge">
+已獲得「利益生成者」徽章
+</span>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>資料庫設計</h3>
+
+<div class="table">
+
+<table>
+
+<tr>
+<th>資料表</th>
+<th>用途</th>
+</tr>
+
+<tr>
+<td>users</td>
+<td>使用者基本資料</td>
+</tr>
+
+<tr>
+<td>referrals</td>
+<td>推薦關係紀錄</td>
+</tr>
+
+<tr>
+<td>tasks</td>
+<td>任務資料</td>
+</tr>
+
+<tr>
+<td>user_task_progress</td>
+<td>任務進度</td>
+</tr>
+
+<tr>
+<td>badges</td>
+<td>徽章資料</td>
+</tr>
+
+<tr>
+<td>user_badges</td>
+<td>使用者徽章紀錄</td>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>推薦驗證邏輯</h3>
+
+<div class="step">
+
+系統會依序檢查：
+<br><br>
+
+・推薦碼是否存在<br>
+・找到推薦人 A<br>
+・B 是否為新用戶<br>
+・手機是否已註冊<br>
+・Email 是否已註冊<br>
+・A 與 B 是否同一人<br>
+・是否符合青年資格<br>
+・是否已被其他人推薦過
+<br><br>
+
+全部通過後：
+<br><br>
+
+建立有效推薦紀錄<br>
+A 任務進度 +1<br>
+發放利益生成者 Badge
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>防止重複驗證機制</h3>
+
+<div class="info-grid">
+
+<div class="info-item">
+<b>第 1 層｜手機唯一</b><br>
+同一手機只能註冊一次
+</div>
+
+<div class="info-item">
+<b>第 2 層｜Email 唯一</b><br>
+同一 Email 不可重複使用
+</div>
+
+<div class="info-item">
+<b>第 3 層｜身分初步比對</b><br>
+姓名、生日、手機、Email
+</div>
+
+<div class="info-item">
+<b>第 4 層｜首次推薦制</b><br>
+first valid referral wins
+</div>
+
+<div class="info-item">
+<b>第 5 層｜異常行為檢查</b><br>
+同 IP、大量註冊、異常推薦碼
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h3>Badge 發放流程</h3>
+
+<div class="step">
+
+Step 1｜確認推薦成功<br>
+status = valid
+
+<br><br>
+
+Step 2｜更新任務進度<br>
+current_count = 1<br>
+status = completed
+
+<br><br>
+
+Step 3｜發放 Badge<br>
+新增 user_badges 紀錄
+
+<br><br>
+
+Step 4｜APP 顯示稱號<br>
+
+<span class="badge">
+利益生成者
+</span>
+
+<br><br>
+
+能力標籤：
+社交擴散、資訊傳遞、公共資源推廣
+
+</div>
+
+</div>
 
 </div>
 
 <div class="footer">
-Beta 青年卡｜任務回報 × 成果驗證 × 成長累積
+Beta 青年卡｜社交連結 × 任務驗證 × Badge 系統
 </div>
 
 </main>
 
 <script>
-const verifyMethods = {
-  referral: {
-    title: "利益生成者｜影響力擴散任務",
-    text: `
-      <b>驗證方式｜社交連結驗證</b><br>
-      系統會確認你是否成功邀請 1 位青年完成有效註冊。<br><br>
-      需驗證：<br>
-      ・你的邀請碼或邀請連結<br>
-      ・被邀請者是否完成有效註冊<br>
-      ・是否為新註冊者且非重複帳號<br>
-      ・系統是否成功產生 1 筆有效推薦紀錄
-    `
-  },
-  vote: {
-    title: "議程設定者｜公共參與任務",
-    text: `
-      <b>驗證方式｜公共參與證明</b><br>
-      參與一次公投或公共議題活動後，上傳相關證明與心得。<br><br>
-      可上傳：<br>
-      ・參與紀錄截圖<br>
-      ・現場照片<br>
-      ・活動資訊頁面<br>
-      ・簡短心得
-    `
-  },
-  risk: {
-    title: "風險判讀者｜辨識風險與詐騙防治",
-    text: `
-      <b>驗證方式｜講座簽到與心得</b><br>
-      完成警政署或校園防詐講座後，上傳簽到紀錄與心得。<br><br>
-      需上傳：<br>
-      ・講座簽到證明<br>
-      ・活動照片或截圖<br>
-      ・50～100 字心得
-    `
-  },
-  sport: {
-    title: "自律養成者｜挑戰自我極限",
-    text: `
-      <b>驗證方式｜運動活動參與證明</b><br>
-      參加公益路跑、馬拉松或相關運動活動。<br><br>
-      可上傳：<br>
-      ・報名成功截圖<br>
-      ・完賽證明<br>
-      ・活動現場照片<br>
-      ・心得
-    `
-  },
-  volunteer: {
-    title: "利他熱情者｜社會參與任務",
-    text: `
-      <b>驗證方式｜志工服務證明</b><br>
-      參與志工服務累積 8 小時，或參與社區／公益相關活動。<br><br>
-      可上傳：<br>
-      ・志工服務時數證明<br>
-      ・活動參與證明<br>
-      ・主辦單位紀錄<br>
-      ・心得
-    `
-  },
-  cpr: {
-    title: "急救守護者｜基礎救護任務",
-    text: `
-      <b>驗證方式｜急救課程證明</b><br>
-      完成 AED／CPR 基礎急救課程，並取得簡易參與證明或基礎認證。<br><br>
-      需上傳：<br>
-      ・課程參與證明<br>
-      ・基礎認證截圖<br>
-      ・現場照片或簽到紀錄
-    `
-  },
-  reading: {
-    title: "知識累積者｜閱讀養成任務",
-    text: `
-      <b>驗證方式｜閱讀紀錄與心得</b><br>
-      完成圖書館借閱累積 3 次，或參與一次讀書分享會／閱讀講座。<br><br>
-      可上傳：<br>
-      ・借閱紀錄截圖<br>
-      ・講座參與證明<br>
-      ・簡短閱讀心得
-    `
-  },
-  culture: {
-    title: "文化體驗者｜文化參與任務",
-    text: `
-      <b>驗證方式｜文化活動參與證明</b><br>
-      參與 2 場文化活動，例如展覽、表演或文化場館。<br><br>
-      可上傳：<br>
-      ・票券截圖<br>
-      ・場館照片<br>
-      ・活動資訊頁<br>
-      ・兩場活動的簡短心得
-    `
-  },
-  growth: {
-    title: "自我成長者｜能力提升任務",
-    text: `
-      <b>請先選擇一項能力提升課程</b><br>
-      自我成長者任務包含 5 類課程，請依實際參與內容選擇對應課程後，再上傳證明。
-    `
-  }
-};
+function selectTask(task, button){
 
-const subMethods = {
-  career: `
-    <b>職場與軟實力｜驗證方式</b><br>
-    需完成職涯、溝通、面試、團隊合作或問題解決相關課程。<br><br>
-    可上傳：課程參與證明、活動照片、課程心得。
-  `,
-  finance: `
-    <b>財務素養與生活管理｜驗證方式</b><br>
-    需完成理財、記帳、保險、生活管理或金融防詐相關課程。<br><br>
-    可上傳：課程證明、活動截圖、學習心得。
-  `,
-  mental: `
-    <b>心理與自我成長｜驗證方式</b><br>
-    需完成心理調適、自我探索、壓力管理或情緒照顧相關課程。<br><br>
-    可上傳：課程參與證明、心得紀錄、自我探索成果。
-  `,
-  speech: `
-    <b>名人演講與拓展視野｜驗證方式</b><br>
-    需參與多元領域專家、產業人士或實務經驗分享活動。<br><br>
-    可上傳：講座照片、報名紀錄、演講心得。
-  `,
-  digital: `
-    <b>數位與跨域技能｜驗證方式</b><br>
-    需完成 AI、數位工具、程式、設計、資料分析或跨域技能相關課程。<br><br>
-    可上傳：課程證明、作品連結、GitHub、成果截圖。
-  `
-};
+document.querySelectorAll(".task-btn").forEach(btn=>{
+btn.classList.remove("active");
+});
 
-function selectTask(taskKey, button){
-  document.querySelectorAll(".task-btn").forEach(btn=>{
-    btn.classList.remove("active");
-  });
-  button.classList.add("active");
+button.classList.add("active");
 
-  document.getElementById("verifyCard").style.display = "block";
-  document.getElementById("selectedTitle").innerText = verifyMethods[taskKey].title;
-  document.getElementById("verifyBox").innerHTML = verifyMethods[taskKey].text;
+if(task === "referral"){
+document.getElementById("referralCard").style.display = "block";
 
-  document.getElementById("result").style.display = "none";
-
-  if(taskKey === "growth"){
-    document.getElementById("subCourseBox").style.display = "block";
-    document.getElementById("subVerifyBox").style.display = "block";
-    document.getElementById("subVerifyBox").innerHTML = "請選擇課程後，這裡會顯示該課程的驗證方式。";
-  }else{
-    document.getElementById("subCourseBox").style.display = "none";
-    document.getElementById("subVerifyBox").style.display = "none";
-  }
-
-  document.getElementById("verifyCard").scrollIntoView({
-    behavior:"smooth"
-  });
+document.getElementById("referralCard").scrollIntoView({
+behavior:"smooth"
+});
 }
 
-function changeSubCourse(){
-  const course = document.getElementById("subCourse").value;
-  const box = document.getElementById("subVerifyBox");
-
-  if(!course){
-    box.innerHTML = "請選擇課程後，這裡會顯示該課程的驗證方式。";
-    return;
-  }
-
-  box.innerHTML = subMethods[course];
-}
-
-function submitTask(){
-  document.getElementById("result").style.display = "block";
 }
 </script>
 
