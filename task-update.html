@@ -3,756 +3,387 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>青年任務回報系統</title>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-
-body{
-  margin:0;
-  background:#fff8f9;
-  font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
-  color:#3f3034;
-}
-
-.hero{
-  padding:36px 20px 28px;
-  background:linear-gradient(135deg,#ffe7ef,#fff7f9);
-}
-
-.hero-card,.panel{
-  max-width:950px;
-  margin:auto;
-  background:#fff;
-  border-radius:30px;
-  padding:28px;
-  box-shadow:0 12px 32px rgba(210,120,150,.14);
-}
-
-.label{
-  display:inline-block;
-  background:#fff0f4;
-  color:#c05f7b;
-  padding:7px 14px;
-  border-radius:999px;
-  font-size:13px;
-  font-weight:700;
-}
-
-h1{
-  margin:16px 0 10px;
-  font-size:32px;
-}
-
-h2{
-  margin:0 0 18px;
-  color:#b95776;
-  font-size:24px;
-}
-
-p{
-  line-height:1.8;
-  color:#7a646c;
-}
-
-.container{
-  max-width:950px;
-  margin:auto;
-  padding:24px 18px 60px;
-}
-
-.task-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-}
-
-.task-btn{
-  border:none;
-  border-radius:22px;
-  background:#fff;
-  border:1px solid #ffe0ea;
-  box-shadow:0 8px 20px rgba(210,130,150,.10);
-  padding:20px;
-  text-align:left;
-  cursor:pointer;
-  font-family:inherit;
-}
-
-.task-btn:hover,
-.task-btn.active{
-  background:#fff0f4;
-  border-color:#df8aa3;
-}
-
-.task-title{
-  font-weight:800;
-  color:#3f3034;
-  margin-bottom:8px;
-  line-height:1.5;
-}
-
-.task-level{
-  display:inline-block;
-  background:#ffe5ee;
-  color:#b95776;
-  border-radius:999px;
-  padding:5px 12px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.verify-card{
-  margin-top:24px;
-  background:#fff;
-  border-radius:30px;
-  padding:28px;
-  box-shadow:0 10px 24px rgba(210,130,150,.12);
-  border:1px solid #ffe4ec;
-  display:none;
-}
-
-.section{
-  background:#fff7f9;
-  border:1px solid #ffe0ea;
-  border-radius:22px;
-  padding:20px;
-  margin-bottom:22px;
-}
-
-.invite-box{
-  background:#fff;
-  border-radius:22px;
-  padding:20px;
-  border:1px solid #f4d7e0;
-}
-
-.code{
-  font-size:26px;
-  font-weight:800;
-  color:#b95776;
-  margin:12px 0;
-}
-
-.progress{
-  background:#f4d7e0;
-  height:14px;
-  border-radius:999px;
-  overflow:hidden;
-  margin:18px 0 10px;
-}
-
-.progress-fill{
-  width:0%;
-  height:100%;
-  background:linear-gradient(90deg,#df8aa3,#c96584);
-  transition:.4s;
-}
-
-.button-group{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:18px;
-}
-
-.action-btn{
-  border:none;
-  border-radius:16px;
-  padding:14px;
-  background:linear-gradient(135deg,#df8aa3,#c96584);
-  color:#fff;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.form-card{
-  background:#fff;
-  border-radius:24px;
-  padding:22px;
-  margin-top:20px;
-  border:1px solid #f4d7e0;
-}
-
-.field{
-  margin-bottom:18px;
-}
-
-label{
-  display:block;
-  margin-bottom:8px;
-  font-weight:700;
-}
-
-input,select{
-  width:100%;
-  box-sizing:border-box;
-  border:1px solid #f2cbd5;
-  border-radius:16px;
-  padding:14px;
-  font-size:15px;
-  outline:none;
-}
-
-.notice{
-  background:#fff0f4;
-  border-radius:18px;
-  padding:16px;
-  line-height:1.8;
-  color:#8a5f6f;
-  margin-bottom:18px;
-}
-
-.phone-row,
-.verify-row{
-  display:flex;
-  gap:10px;
-}
-
-.phone-row input,
-.verify-row input{
-  flex:1;
-}
-
-.otp-btn,
-.verify-btn{
-  width:140px;
-  border:none;
-  border-radius:16px;
-  background:#fff0f4;
-  color:#b95776;
-  font-weight:700;
-  cursor:pointer;
-}
-
-#qrcode,
-#voteQR{
-  margin-top:20px;
-  display:flex;
-  justify-content:center;
-}
-
-.scan-success{
-  display:none;
-  margin-top:18px;
-  background:#fff0f4;
-  border:1px solid #f3c5d0;
-  color:#b95776;
-  border-radius:18px;
-  padding:16px;
-  text-align:center;
-  font-weight:700;
-}
-
-.footer{
-  text-align:center;
-  margin-top:34px;
-  font-size:13px;
-  color:#8a737a;
-}
-
+body{margin:0;background:#fff8f9;font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;color:#3f3034}
+.hero{padding:36px 20px 28px;background:linear-gradient(135deg,#ffe7ef,#fff7f9)}
+.hero-card,.panel{max-width:950px;margin:auto;background:#fff;border-radius:30px;padding:28px;box-shadow:0 12px 32px rgba(210,120,150,.14)}
+.label{display:inline-block;background:#fff0f4;color:#c05f7b;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700}
+h1{margin:16px 0 10px;font-size:32px}
+h2{margin:0 0 18px;color:#b95776;font-size:24px}
+p{line-height:1.8;color:#7a646c}
+.container{max-width:950px;margin:auto;padding:24px 18px 60px}
+.task-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.task-btn{border:none;border-radius:22px;background:#fff;border:1px solid #ffe0ea;box-shadow:0 8px 20px rgba(210,130,150,.10);padding:20px;text-align:left;cursor:pointer;font-family:inherit}
+.task-btn:hover,.task-btn.active{background:#fff0f4;border-color:#df8aa3}
+.task-title{font-weight:800;color:#3f3034;margin-bottom:8px;line-height:1.5}
+.task-level{display:inline-block;background:#ffe5ee;color:#b95776;border-radius:999px;padding:5px 12px;font-size:12px;font-weight:700}
+.verify-card{margin-top:24px;background:#fff;border-radius:30px;padding:28px;box-shadow:0 10px 24px rgba(210,130,150,.12);border:1px solid #ffe4ec;display:none}
+.section{background:#fff7f9;border:1px solid #ffe0ea;border-radius:22px;padding:20px;margin-bottom:22px}
+.invite-box{background:#fff;border-radius:22px;padding:20px;border:1px solid #f4d7e0}
+.code{font-size:26px;font-weight:800;color:#b95776;margin:12px 0}
+.progress{background:#f4d7e0;height:14px;border-radius:999px;overflow:hidden;margin:18px 0 10px}
+.progress-fill{width:0%;height:100%;background:linear-gradient(90deg,#df8aa3,#c96584);transition:.4s}
+.button-group{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.action-btn{border:none;border-radius:16px;padding:14px;background:linear-gradient(135deg,#df8aa3,#c96584);color:#fff;font-weight:700;cursor:pointer;width:100%}
+.form-card{background:#fff;border-radius:24px;padding:22px;margin-top:20px;border:1px solid #f4d7e0}
+.field{margin-bottom:18px}
+label{display:block;margin-bottom:8px;font-weight:700}
+input,select,textarea{width:100%;box-sizing:border-box;border:1px solid #f2cbd5;border-radius:16px;padding:14px;font-size:15px;outline:none;font-family:inherit}
+textarea{min-height:170px;resize:none}
+.notice{background:#fff0f4;border-radius:18px;padding:16px;line-height:1.8;color:#8a5f6f;margin-bottom:18px}
+.phone-row,.verify-row{display:flex;gap:10px}
+.phone-row input,.verify-row input{flex:1}
+.otp-btn,.verify-btn{width:140px;border:none;border-radius:16px;background:#fff0f4;color:#b95776;font-weight:700;cursor:pointer}
+.qr{margin-top:20px;display:flex;justify-content:center}
+.success{display:none;margin-top:18px;background:#fff0f4;border:1px solid #f3c5d0;color:#b95776;border-radius:18px;padding:16px;text-align:center;font-weight:700;line-height:1.8}
+.footer{text-align:center;margin-top:34px;font-size:13px;color:#8a737a}
 @media(max-width:720px){
-
-.task-grid,
-.button-group{
-grid-template-columns:1fr;
+.task-grid,.button-group{grid-template-columns:1fr}
+.phone-row,.verify-row{flex-direction:column}
+.otp-btn,.verify-btn{width:100%;height:50px}
+h1{font-size:28px}
 }
-
-.phone-row,
-.verify-row{
-flex-direction:column;
-}
-
-.otp-btn,
-.verify-btn{
-width:100%;
-height:50px;
-}
-
-h1{
-font-size:28px;
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
 <section class="hero">
-
 <div class="hero-card">
-
-<span class="label">
-Task Verification
-</span>
-
-<h1>
-青年任務回報系統
-</h1>
-
-<p>
-請先選擇任務後查看對應驗證方式，
-完成後系統將更新任務進度與青年 Badge。
-</p>
-
+<span class="label">Task Verification</span>
+<h1>青年任務回報系統</h1>
+<p>請選擇你要回報的青年任務，系統會依任務類型顯示不同驗證方式。</p>
 </div>
-
 </section>
 
 <main class="container">
 
 <div class="panel">
-
-<h2>
-13 項青年任務
-</h2>
+<h2>9 項 MVP 青年任務</h2>
 
 <div class="task-grid">
-
-<button class="task-btn active" onclick="showReferralTask(this)">
-<div class="task-title">
-利益生成者｜影響力擴散任務
+<button class="task-btn active" onclick="showTask('referral',this)"><div class="task-title">利益生成者｜影響力擴散任務</div><span class="task-level">基礎</span></button>
+<button class="task-btn" onclick="showTask('risk',this)"><div class="task-title">風險判讀者｜辨識風險與詐騙防治</div><span class="task-level">中階</span></button>
+<button class="task-btn" onclick="showTask('volunteer',this)"><div class="task-title">利他熱情者｜社會參與任務</div><span class="task-level">中階</span></button>
+<button class="task-btn" onclick="showTask('culture',this)"><div class="task-title">文化體驗者｜文化參與任務</div><span class="task-level">困難</span></button>
+<button class="task-btn" onclick="showTask('career',this)"><div class="task-title">自我成長者｜職場與軟實力</div><span class="task-level">困難</span></button>
+<button class="task-btn" onclick="showTask('finance',this)"><div class="task-title">自我成長者｜財務素養與生活管理</div><span class="task-level">困難</span></button>
+<button class="task-btn" onclick="showTask('mental',this)"><div class="task-title">自我成長者｜心理與自我成長</div><span class="task-level">困難</span></button>
+<button class="task-btn" onclick="showTask('speech',this)"><div class="task-title">自我成長者｜名人演講與拓展視野</div><span class="task-level">困難</span></button>
+<button class="task-btn" onclick="showTask('digital',this)"><div class="task-title">自我成長者｜數位與跨域技能</div><span class="task-level">困難</span></button>
 </div>
-<span class="task-level">
-基礎
-</span>
-</button>
-
-<button class="task-btn" onclick="showAgendaTask(this)">
-<div class="task-title">
-議程設定者｜公共參與任務
-</div>
-<span class="task-level">
-基礎
-</span>
-</button>
-
-<button class="task-btn">
-<div class="task-title">
-風險判讀者｜辨識風險與詐騙防治
-</div>
-<span class="task-level">
-中階
-</span>
-</button>
-
-<button class="task-btn">
-<div class="task-title">
-自律養成者｜挑戰自我極限
-</div>
-<span class="task-level">
-中階
-</span>
-</button>
-
-<button class="task-btn">
-<div class="task-title">
-利他熱情者｜社會參與任務
-</div>
-<span class="task-level">
-中階
-</span>
-</button>
-
-<button class="task-btn">
-<div class="task-title">
-急救守護者｜基礎救護任務
-</div>
-<span class="task-level">
-中階
-</span>
-</button>
-
-<button class="task-btn">
-<div class="task-title">
-知識累積者｜閱讀養成任務
-</div>
-<span class="task-level">
-中階
-</span>
-</button>
-
-<button class="task-btn">
-<div class="task-title">
-文化體驗者｜文化參與任務
-</div>
-<span class="task-level">
-困難
-</span>
-</button>
-
-<button class="task-btn">
-<div class="task-title">
-自我成長者｜能力提升任務
-</div>
-<span class="task-level">
-困難
-</span>
-</button>
-
-</div>
-
 </div>
 
 <!-- 利益生成者 -->
-
-<div id="referralTask" class="verify-card" style="display:block;">
-
-<h2>
-利益生成者｜社交連結任務
-</h2>
-
+<div id="referral" class="verify-card" style="display:block;">
+<h2>利益生成者｜社交連結任務</h2>
 <div class="section">
-
-<p>
-推薦人透過青年卡 APP 產生個人邀請碼或邀請連結，
-邀請被推薦人註冊青年卡。
-當被推薦人完成有效註冊後，
-系統即認定推薦成功。
-</p>
-
+<p>推薦人透過青年卡 APP 產生邀請碼或邀請連結，邀請被推薦人完成青年卡註冊，即可完成任務。</p>
 </div>
 
 <div class="section">
-
-<h2>
-推薦人任務頁面
-</h2>
-
+<h2>推薦人任務頁面</h2>
 <div class="invite-box">
-
-<p>
-邀請 1 位青年完成青年卡註冊，即可完成任務。
-</p>
-
-<div class="progress">
-<div class="progress-fill" id="progressFill"></div>
-</div>
-
-<p id="progressText">
-目前進度：0 / 1
-</p>
-
-<div class="code">
-TYC-U000128
-</div>
+<p>邀請 1 位青年完成青年卡註冊，即可完成任務。</p>
+<div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+<p id="progressText">目前進度：0 / 1</p>
+<div class="code">TYC-U000128</div>
 
 <div class="button-group">
-
-<button class="action-btn" onclick="copyCode()">
-複製邀請碼
-</button>
-
-<button class="action-btn" onclick="shareLink()">
-分享邀請連結
-</button>
-
-<button class="action-btn" onclick="generateQR()">
-產生邀請 QR Code
-</button>
-
+<button class="action-btn" onclick="copyCode()">複製邀請碼</button>
+<button class="action-btn" onclick="shareLink()">分享邀請連結</button>
+<button class="action-btn" onclick="generateQR('qrcode','https://youthcard.taipei/register?ref=TYC-U000128')">產生邀請 QR Code</button>
 </div>
 
-<div id="qrcode"></div>
-
+<div id="qrcode" class="qr"></div>
 </div>
-
 </div>
 
 <div class="form-card">
+<h2>被推薦人註冊畫面</h2>
+<div class="notice">你是透過好友邀請加入青年卡</div>
 
-<h2>
-被推薦人註冊畫面
-</h2>
-
-<div class="notice">
-你是透過好友邀請加入青年卡
-</div>
+<div class="field"><label>姓名</label><input id="name" type="text"></div>
 
 <div class="field">
-<label>姓名</label>
-<input id="name" type="text">
-</div>
-
-<div class="field">
-
 <label>手機號碼</label>
-
 <div class="phone-row">
-
 <input id="phone" type="tel">
-
-<button class="otp-btn" onclick="sendOTP()">
-傳送驗證碼
-</button>
-
+<button class="otp-btn" onclick="sendOTP()">傳送驗證碼</button>
 </div>
-
 </div>
 
 <div class="field">
-
 <label>輸入驗證碼</label>
-
 <div class="verify-row">
-
 <input id="verifyCode" type="text" placeholder="輸入手機驗證碼">
-
-<button class="verify-btn" onclick="verifyOTP()">
-驗證
-</button>
-
+<button class="verify-btn" onclick="verifyOTP()">驗證</button>
+</div>
 </div>
 
-</div>
+<div class="field"><label>Email</label><input id="email" type="email"></div>
+<div class="field"><label>出生年月日</label><input id="birthday" type="date"></div>
 
 <div class="field">
-<label>Email</label>
-<input id="email" type="email">
-</div>
-
-<div class="field">
-<label>出生年月日</label>
-<input id="birthday" type="date">
-</div>
-
-<div class="field">
-
 <label>與臺北關聯</label>
-
 <select id="relation">
-
-<option value="">
-請選擇
-</option>
-
-<option>
-設籍臺北
-</option>
-
-<option>
-臺北就學
-</option>
-
-<option>
-臺北就業
-</option>
-
-<option>
-臺北居住
-</option>
-
+<option value="">請選擇</option>
+<option>設籍臺北</option>
+<option>臺北就學</option>
+<option>臺北就業</option>
+<option>臺北居住</option>
 </select>
-
 </div>
 
-<div class="field">
-<label>地址</label>
-<input id="address" type="text">
+<div class="field"><label>地址</label><input id="address" type="text"></div>
+<div class="field"><label>學校或就業單位</label><input id="school" type="text"></div>
+
+<button class="action-btn" onclick="completeRegister()">完成有效註冊</button>
+<div id="referralSuccess" class="success">推薦成功 1 / 1<br>已完成「利益生成者」任務</div>
+</div>
 </div>
 
-<div class="field">
-<label>學校或就業單位</label>
-<input id="school" type="text">
-</div>
-
-<div class="field">
-<label>手機 OTP 驗證碼</label>
-<input id="otp" type="text" placeholder="輸入 6 碼驗證碼">
-</div>
-
-<button class="action-btn" style="width:100%;" onclick="completeRegister()">
-完成有效註冊
-</button>
-
-</div>
-
-</div>
-
-<!-- 議程設定者 -->
-
-<div id="agendaTask" class="verify-card">
-
-<h2>
-議程設定者｜公共參與任務
-</h2>
+<!-- 通用任務驗證區 -->
+<div id="genericTask" class="verify-card">
+<h2 id="genericTitle"></h2>
 
 <div class="section">
-
-<p>
-青年需實際參與一次公共投票或公投活動，
-並於現場掃描青年卡專屬 QR Code 完成驗證。
-</p>
-
-<p>
-系統將透過掃碼紀錄確認青年是否完成公共參與，
-並同步更新任務進度。
-</p>
-
+<p id="genericContent"></p>
+<p id="genericPurpose"></p>
 </div>
 
 <div class="section">
-
-<h2>
-任務驗證方式
-</h2>
-
+<h2 id="verifyTitle"></h2>
 <div class="invite-box">
-
-<p>
-現場完成公投後，
-使用青年卡 APP 掃描活動現場 QR Code，
-即可完成驗證。
-</p>
-
-<div id="voteQR"></div>
-
-<div style="margin-top:20px;">
-
-<button class="action-btn" style="width:100%;" onclick="verifyVoteTask()">
-模擬掃描完成
-</button>
-
+<p id="verifyText"></p>
+<div id="genericQR" class="qr"></div>
+<button id="scanBtn" class="action-btn" style="margin-top:20px;" onclick="scanGenericQR()">模擬掃描完成</button>
+<div id="scanSuccess" class="success">掃描成功，已完成簽到驗證</div>
+</div>
 </div>
 
-<div id="scanSuccess" class="scan-success">
-掃描成功，已完成公共參與任務驗證
+<div class="form-card">
+<h2>任務成果回報</h2>
+
+<div class="field">
+<label>完成日期</label>
+<input id="genericDate" type="date">
 </div>
 
+<div class="field">
+<label id="proofLabel">上傳證明</label>
+<input id="genericFile" type="file">
 </div>
 
+<div class="field">
+<label id="linkLabel">活動或作品連結</label>
+<input id="genericLink" type="url" placeholder="如有活動頁、作品連結、報名紀錄，可貼在這裡">
 </div>
 
+<div class="field">
+<label id="essayLabel">心得說明</label>
+<textarea id="genericEssay" placeholder="請簡短說明你完成了什麼、學到什麼。"></textarea>
 </div>
 
-<div class="footer">
-Beta 青年卡｜社交連結 × 公共參與 × Badge 系統
+<button class="action-btn" onclick="submitGenericTask()">完成任務驗證</button>
+<div id="genericSuccess" class="success"></div>
 </div>
+</div>
+
+<div class="footer">Beta 青年卡｜青年任務 × 成長累積 × Badge 系統</div>
 
 </main>
 
 <script>
+let currentTask = "";
 
-function showReferralTask(button){
+const tasks = {
+risk:{
+title:"風險判讀者｜辨識風險與詐騙防治",
+content:"內容包含：警政署校園講座簽到，並完成心得上傳。",
+purpose:"目的：因應青年為詐騙高風險族群，透過既有防詐資源導入，強化基本風險判讀能力。",
+verifyTitle:"警政署活動 QR Code 簽到",
+verifyText:"請於警政署或校園防詐講座現場，使用青年卡系統掃描活動 QR Code 完成簽到。完成後選填日期、撰寫 500 字心得並上傳附件。",
+qr:"https://npa.gov.tw/fraud-prevention-checkin",
+essayMin:500,
+success:"已完成「風險判讀者」任務驗證"
+},
+volunteer:{
+title:"利他熱情者｜社會參與任務",
+content:"內容包含：參與志工服務累積 8 小時，或參與社區／公益相關活動。",
+purpose:"目的：建立青年與社會之間的連結，理解自身在群體中的角色與責任。",
+verifyTitle:"志工服務 QR Code／服務證明驗證",
+verifyText:"請於合作志工單位、社區活動或公益活動現場掃描 QR Code，或上傳服務時數證明。MVP 可採 QR Code 簽到、服務證明上傳或合作單位名單認列。",
+qr:"https://volunteer.taipei/youthcard-checkin",
+essayMin:50,
+success:"已完成「利他熱情者」任務驗證"
+},
+culture:{
+title:"文化體驗者｜文化參與任務",
+content:"內容包含：參與 2 場文化活動，例如展覽、表演或文化場館。",
+purpose:"目的：促進青年主動接觸文化場域，培養跨文化理解與城市感知能力。",
+verifyTitle:"文化場域 QR Code／票券上傳驗證",
+verifyText:"請至指定文化場域掃描 QR Code，或上傳票券、報名紀錄、場館照片。累積 2 次文化參與紀錄後，即可完成任務。",
+qr:"https://culture.taipei/youthcard-checkin",
+essayMin:80,
+success:"已完成「文化體驗者」任務驗證"
+},
+career:{
+title:"自我成長者｜職場與軟實力",
+content:"內容包含：履歷健檢、面試工作坊、簡報表達、團隊合作、問題解決、職場溝通。",
+purpose:"目的：培養青年職場所需之核心軟實力，提升溝通表達、團隊合作與問題解決能力。",
+verifyTitle:"課程簽到／履歷健檢紀錄驗證",
+verifyText:"請完成職涯課程、履歷健檢或面試工作坊，並上傳課程完成紀錄、QR Code 簽到或履歷健檢紀錄。",
+qr:"https://career.taipei/youthcard-checkin",
+essayMin:80,
+success:"已完成「職場與軟實力」任務驗證"
+},
+finance:{
+title:"自我成長者｜財務素養與生活管理",
+content:"內容包含：預算管理、信用卡與信用分數、租屋財務、保險觀念、防詐理財、基本投資風險。",
+purpose:"目的：建立青年正確財務觀念與自我管理能力，強化資源配置與風險控管能力。",
+verifyTitle:"線上測驗／課程簽到驗證",
+verifyText:"請完成財務素養課程或測驗，並上傳測驗通過紀錄、課程簽到或學習成果。",
+qr:"https://finance.taipei/youthcard-checkin",
+essayMin:80,
+success:"已完成「財務素養與生活管理」任務驗證"
+},
+mental:{
+title:"自我成長者｜心理與自我成長",
+content:"內容包含：壓力管理、自我覺察、情緒調適、時間管理、職涯焦慮調適。",
+purpose:"目的：促進青年自我覺察與心理調適能力，提升面對壓力與不確定性的應對能力。",
+verifyTitle:"課程完成紀錄／匿名測評完成紀錄",
+verifyText:"請完成心理或自我成長課程，並上傳課程完成紀錄、測評完成畫面或心得。",
+qr:"https://mental.taipei/youthcard-checkin",
+essayMin:80,
+success:"已完成「心理與自我成長」任務驗證"
+},
+speech:{
+title:"自我成長者｜名人演講與拓展視野",
+content:"內容包含：產業講座、企業講師分享、創業家講座、青年論壇、國際交流分享。",
+purpose:"目的：透過多元領域專家與實務經驗分享，拓展青年視野與產業認知。",
+verifyTitle:"活動 QR Code／報名紀錄驗證",
+verifyText:"請參與演講、論壇或產業分享活動，並上傳 QR Code 簽到、報名紀錄、活動照片或心得。",
+qr:"https://forum.taipei/youthcard-checkin",
+essayMin:80,
+success:"已完成「名人演講與拓展視野」任務驗證"
+},
+digital:{
+title:"自我成長者｜數位與跨域技能",
+content:"內容包含：AI 工具應用、資料分析、Excel／簡報、數位行銷、跨域專案方法。",
+purpose:"目的：培養青年數位應用能力與跨領域整合能力，提升創新思維與多元職能發展潛力。",
+verifyTitle:"線上課程完成證明／作品上傳",
+verifyText:"請完成數位或跨域技能課程，並上傳課程完成證明、作品連結、GitHub、成果截圖或測驗通過紀錄。",
+qr:"https://digital.taipei/youthcard-checkin",
+essayMin:80,
+success:"已完成「數位與跨域技能」任務驗證"
+}
+};
 
-document.querySelectorAll(".task-btn").forEach(btn=>{
-btn.classList.remove("active");
-});
-
-button.classList.add("active");
-
-document.getElementById("referralTask").style.display = "block";
-document.getElementById("agendaTask").style.display = "none";
-
+function hideAll(){
+document.getElementById("referral").style.display="none";
+document.getElementById("genericTask").style.display="none";
+document.getElementById("scanSuccess").style.display="none";
+document.getElementById("genericSuccess").style.display="none";
 }
 
-function showAgendaTask(button){
+function resetButtons(){
+document.querySelectorAll(".task-btn").forEach(btn=>btn.classList.remove("active"));
+}
 
-document.querySelectorAll(".task-btn").forEach(btn=>{
-btn.classList.remove("active");
-});
+function showTask(taskKey,btn){
+resetButtons();
+btn.classList.add("active");
+hideAll();
 
-button.classList.add("active");
+if(taskKey==="referral"){
+document.getElementById("referral").style.display="block";
+return;
+}
 
-document.getElementById("referralTask").style.display = "none";
-document.getElementById("agendaTask").style.display = "block";
+currentTask = taskKey;
+const task = tasks[taskKey];
 
-document.getElementById("voteQR").innerHTML = "";
+document.getElementById("genericTask").style.display="block";
+document.getElementById("genericTitle").innerText=task.title;
+document.getElementById("genericContent").innerText=task.content;
+document.getElementById("genericPurpose").innerText=task.purpose;
+document.getElementById("verifyTitle").innerText=task.verifyTitle;
+document.getElementById("verifyText").innerText=task.verifyText;
+document.getElementById("genericSuccess").innerText=task.success;
 
-new QRCode(document.getElementById("voteQR"), {
-text:"https://taipei-vote.tw/checkin/public-task",
+document.getElementById("genericQR").innerHTML="";
+new QRCode(document.getElementById("genericQR"),{
+text:task.qr,
 width:180,
 height:180
 });
+}
 
+function generateQR(id,text){
+document.getElementById(id).innerHTML="";
+new QRCode(document.getElementById(id),{text:text,width:180,height:180});
 }
 
 function copyCode(){
-
 navigator.clipboard.writeText("TYC-U000128");
-
 alert("已複製邀請碼：TYC-U000128");
-
 }
 
 function shareLink(){
-
-navigator.clipboard.writeText(
-"https://youthcard.taipei/register?ref=TYC-U000128"
-);
-
+navigator.clipboard.writeText("https://youthcard.taipei/register?ref=TYC-U000128");
 alert("已複製邀請連結");
-
-}
-
-function generateQR(){
-
-document.getElementById("qrcode").innerHTML = "";
-
-new QRCode(document.getElementById("qrcode"), {
-text:"https://youthcard.taipei/register?ref=TYC-U000128",
-width:180,
-height:180
-});
-
 }
 
 function sendOTP(){
-
-const phone = document.getElementById("phone").value;
-
-if(!phone){
-alert("請先輸入手機號碼");
-return;
-}
-
+const phone=document.getElementById("phone").value;
+if(!phone){alert("請先輸入手機號碼");return;}
 alert("驗證碼已傳送至：" + phone);
-
 }
 
 function verifyOTP(){
-
-const code = document.getElementById("verifyCode").value;
-
-if(!code){
-alert("請輸入驗證碼");
-return;
-}
-
+const code=document.getElementById("verifyCode").value;
+if(!code){alert("請輸入驗證碼");return;}
 alert("驗證成功");
-
 }
 
 function completeRegister(){
-
-const name = document.getElementById("name").value;
-const phone = document.getElementById("phone").value;
-const email = document.getElementById("email").value;
-
+const name=document.getElementById("name").value;
+const phone=document.getElementById("phone").value;
+const email=document.getElementById("email").value;
 if(!name || !phone || !email){
 alert("請完成基本資料");
 return;
 }
-
-document.getElementById("progressFill").style.width = "100%";
-
-document.getElementById("progressText").innerHTML =
-"目前進度：1 / 1";
-
-alert("推薦成功，已完成利益生成者任務");
-
+document.getElementById("progressFill").style.width="100%";
+document.getElementById("progressText").innerHTML="目前進度：1 / 1";
+document.getElementById("referralSuccess").style.display="block";
 }
 
-function verifyVoteTask(){
-
-document.getElementById("scanSuccess").style.display = "block";
-
+function scanGenericQR(){
+document.getElementById("scanSuccess").style.display="block";
 }
 
+function submitGenericTask(){
+const date=document.getElementById("genericDate").value;
+const essay=document.getElementById("genericEssay").value;
+const task=tasks[currentTask];
+
+if(!date){
+alert("請填寫完成日期");
+return;
+}
+
+if(essay.length < task.essayMin){
+alert("心得至少需 " + task.essayMin + " 字");
+return;
+}
+
+document.getElementById("genericSuccess").style.display="block";
+}
 </script>
 
 </body>
