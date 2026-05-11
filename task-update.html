@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>回報任務</title>
+
+<style>
+body{
+  margin:0;
+  font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  background:#fff8f9;
+  color:#3f3034;
+}
+
+.hero{
+  padding:34px 22px 26px;
+  background:linear-gradient(135deg,#ffe6ee,#fff7f9);
+}
+
+.hero-card{
+  max-width:860px;
+  margin:auto;
+  background:#fff;
+  border-radius:28px;
+  padding:28px;
+  box-shadow:0 12px 32px rgba(210,120,150,.16);
+}
+
+.label{
+  display:inline-block;
+  background:#fff0f4;
+  color:#c05f7b;
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+}
+
+h1{
+  margin:16px 0 10px;
+  font-size:30px;
+}
+
+.hero p{
+  color:#7b626b;
+  line-height:1.8;
+  font-size:15px;
+}
+
+.container{
+  max-width:860px;
+  margin:auto;
+  padding:28px 18px 60px;
+}
+
+.form-card{
+  background:#fff;
+  border-radius:28px;
+  padding:24px;
+  box-shadow:0 10px 24px rgba(210,130,150,.12);
+  border:1px solid #ffe4ec;
+}
+
+.field{
+  margin-bottom:20px;
+}
+
+label{
+  display:block;
+  font-weight:700;
+  margin-bottom:9px;
+  color:#4a383e;
+}
+
+input,select,textarea{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid #f2cbd5;
+  border-radius:16px;
+  padding:14px 15px;
+  font-size:15px;
+  background:#fff;
+  outline:none;
+  font-family:inherit;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+input:focus,select:focus,textarea:focus{
+  border-color:#d97898;
+  box-shadow:0 0 0 3px rgba(217,120,152,.12);
+}
+
+.upload{
+  border:1.5px dashed #efb8c6;
+  background:#fffafd;
+  border-radius:18px;
+  padding:26px 18px;
+  text-align:center;
+  color:#8b7278;
+}
+
+.upload input{
+  border:none;
+  padding:0;
+  margin-top:14px;
+}
+
+.note{
+  font-size:13px;
+  color:#9a7f86;
+  line-height:1.6;
+}
+
+.checklist{
+  background:#fff7f9;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:20px;
+}
+
+.checklist-title{
+  font-weight:700;
+  color:#b95776;
+  margin-bottom:10px;
+}
+
+.check-item{
+  font-size:14px;
+  line-height:1.8;
+}
+
+button{
+  width:100%;
+  border:none;
+  border-radius:18px;
+  padding:16px;
+  background:linear-gradient(135deg,#df8aa3,#c96584);
+  color:white;
+  font-size:18px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.result{
+  display:none;
+  margin-top:22px;
+  background:#fff0f4;
+  border:1px solid #f3c5d0;
+  color:#9d5168;
+  border-radius:18px;
+  padding:18px;
+  line-height:1.7;
+  font-weight:700;
+}
+
+.footer{
+  text-align:center;
+  margin-top:30px;
+  font-size:13px;
+  color:#8a737a;
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-card">
+    <span class="label">Task Verification</span>
+    <h1>回報任務</h1>
+    <p>
+      完成青年任務後，請在此提交任務成果。系統將依據上傳資料進行審核，
+      審核通過後會更新任務進度、Beta Points 與青年卡解鎖狀態。
+    </p>
+  </div>
+</section>
+
+<main class="container">
+
+<div class="form-card">
+
+  <div class="checklist">
+    <div class="checklist-title">送出前請確認</div>
+    <div class="check-item">✓ 已完成任務指定內容</div>
+    <div class="check-item">✓ 已準備照片、截圖、文件或證明</div>
+    <div class="check-item">✓ 心得內容可說明你實際參與的過程</div>
+  </div>
+
+  <div class="field">
+    <label>姓名／暱稱</label>
+    <input type="text" placeholder="請輸入姓名或暱稱">
+  </div>
+
+  <div class="field">
+    <label>Email</label>
+    <input type="email" placeholder="請輸入 Email">
+  </div>
+
+  <div class="field">
+    <label>選擇回報任務</label>
+    <select>
+      <option>請選擇任務</option>
+      <option>利益生成者｜影響力擴散任務</option>
+      <option>議程設定者｜公共參與任務</option>
+      <option>風險判讀者｜辨識風險與詐騙防治</option>
+      <option>自律養成者｜挑戰自我極限</option>
+      <option>利他熱情者｜社會參與任務</option>
+      <option>急救守護者｜基礎救護任務</option>
+      <option>知識累積者｜閱讀養成任務</option>
+      <option>文化體驗者｜文化參與任務</option>
+      <option>自我成長者｜能力提升任務</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label>任務完成日期</label>
+    <input type="date">
+  </div>
+
+  <div class="field">
+    <label>上傳完成證明</label>
+    <div class="upload">
+      <div>可上傳照片、截圖、證明文件或參與紀錄</div>
+      <input type="file" accept="image/*,.pdf" multiple>
+      <div class="note">支援 JPG、PNG、PDF，可一次上傳多個檔案。</div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>作品或活動連結</label>
+    <input type="url" placeholder="如有活動頁、作品連結、貼文連結，可貼在這裡">
+  </div>
+
+  <div class="field">
+    <label>任務心得</label>
+    <textarea placeholder="請簡短說明你完成了什麼、學到什麼，以及這次任務對你的幫助。"></textarea>
+  </div>
+
+  <div class="field">
+    <label>補充說明</label>
+    <textarea placeholder="如有其他想補充的資料，可填寫在這裡。"></textarea>
+  </div>
+
+  <button onclick="submitTask()">送出任務回報</button>
+
+  <div id="result" class="result">
+    任務回報已送出。系統將進入審核流程，審核通過後會更新你的任務進度與青年卡資格。
+  </div>
+
+</div>
+
+<div class="footer">
+Beta 青年卡｜任務回報 × 成果驗證 × 成長累積
+</div>
+
+</main>
+
+<script>
+function submitTask(){
+  document.getElementById("result").style.display = "block";
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: "smooth"
+  });
+}
+</script>
+
+</body>
+</html>
