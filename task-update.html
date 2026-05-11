@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>青年任務回報系統</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -110,7 +111,7 @@ p{
   padding:28px;
   box-shadow:0 10px 24px rgba(210,130,150,.12);
   border:1px solid #ffe4ec;
-  display:block;
+  display:none;
 }
 
 .section{
@@ -226,34 +227,18 @@ input,select{
   font-weight:700;
 }
 
-.phone-row{
-  display:flex;
-  gap:10px;
-}
-
-.phone-row input{
-  flex:1;
-}
-
-.otp-btn{
-  width:140px;
-  border:none;
-  border-radius:16px;
-  background:#fff0f4;
-  color:#b95776;
-  font-weight:700;
-  cursor:pointer;
-}
-
+.phone-row,
 .verify-row{
   display:flex;
   gap:10px;
 }
 
+.phone-row input,
 .verify-row input{
   flex:1;
 }
 
+.otp-btn,
 .verify-btn{
   width:140px;
   border:none;
@@ -264,7 +249,8 @@ input,select{
   cursor:pointer;
 }
 
-#qrcode{
+#qrcode,
+#voteQR{
   margin-top:20px;
   display:flex;
   justify-content:center;
@@ -337,7 +323,7 @@ Task Verification
 
 <div class="task-grid">
 
-<button class="task-btn active">
+<button class="task-btn active" onclick="showReferralTask(this)">
 <div class="task-title">
 利益生成者｜影響力擴散任務
 </div>
@@ -346,7 +332,7 @@ Task Verification
 </span>
 </button>
 
-<button class="task-btn">
+<button class="task-btn" onclick="showAgendaTask(this)">
 <div class="task-title">
 議程設定者｜公共參與任務
 </div>
@@ -422,7 +408,9 @@ Task Verification
 
 </div>
 
-<div class="verify-card">
+<!-- 利益生成者 -->
+
+<div id="referralTask" class="verify-card" style="display:block;">
 
 <h2>
 利益生成者｜社交連結任務
@@ -620,13 +608,132 @@ TYC-U000128
 
 </div>
 
+<!-- 議程設定者 -->
+
+<div id="agendaTask" class="verify-card">
+
+<h2>
+議程設定者｜公共參與任務
+</h2>
+
+<div class="section">
+
+<p>
+青年需實際參與一次公共投票或公投活動，
+並於現場掃描青年卡專屬 QR Code 完成驗證。
+</p>
+
+<p>
+系統將透過掃碼紀錄確認青年是否完成公共參與，
+並同步更新任務進度與公共參與徽章。
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>
+任務驗證方式
+</h2>
+
+<div class="invite-box">
+
+<p>
+現場完成公投後，
+使用青年卡 APP 掃描活動現場 QR Code，
+即可完成驗證。
+</p>
+
+<div id="voteQR"></div>
+
+<div style="margin-top:20px;">
+
+<button class="action-btn" style="width:100%;" onclick="verifyVoteTask()">
+模擬掃描完成
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="voteSuccess" class="success">
+
+公共參與任務驗證成功<br>
+已完成「議程設定者」任務
+
+<br><br>
+
+已獲得：
+
+<div class="badge">
+議程設定者 Badge
+</div>
+
+<br><br>
+
+能力標籤：<br>
+公共參與、制度理解、民主素養
+
+<br><br>
+
+完成日期：
+<span id="voteDate"></span>
+
+</div>
+
+</div>
+
 <div class="footer">
-Beta 青年卡｜社交連結 × 有效推薦 × Badge 系統
+Beta 青年卡｜社交連結 × 公共參與 × Badge 系統
 </div>
 
 </main>
 
 <script>
+
+function showReferralTask(button){
+
+document.querySelectorAll(".task-btn").forEach(btn=>{
+btn.classList.remove("active");
+});
+
+button.classList.add("active");
+
+document.getElementById("referralTask").style.display = "block";
+document.getElementById("agendaTask").style.display = "none";
+
+document.getElementById("referralTask").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function showAgendaTask(button){
+
+document.querySelectorAll(".task-btn").forEach(btn=>{
+btn.classList.remove("active");
+});
+
+button.classList.add("active");
+
+document.getElementById("referralTask").style.display = "none";
+document.getElementById("agendaTask").style.display = "block";
+
+document.getElementById("voteQR").innerHTML = "";
+
+new QRCode(document.getElementById("voteQR"), {
+text:"https://taipei-vote.tw/checkin/public-task",
+width:180,
+height:180
+});
+
+document.getElementById("agendaTask").scrollIntoView({
+behavior:"smooth"
+});
+
+}
 
 function copyCode(){
 
@@ -719,6 +826,24 @@ document.getElementById("successBox").style.display = "block";
 const today = new Date();
 
 document.getElementById("today").innerHTML =
+today.getFullYear() + "/" +
+(today.getMonth()+1) + "/" +
+today.getDate();
+
+window.scrollTo({
+top:document.body.scrollHeight,
+behavior:"smooth"
+});
+
+}
+
+function verifyVoteTask(){
+
+document.getElementById("voteSuccess").style.display = "block";
+
+const today = new Date();
+
+document.getElementById("voteDate").innerHTML =
 today.getFullYear() + "/" +
 (today.getMonth()+1) + "/" +
 today.getDate();
