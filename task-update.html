@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>回報任務</title>
+<title>任務回報驗證</title>
 
 <style>
 body{
@@ -12,21 +12,18 @@ body{
   background:#fff8f9;
   color:#3f3034;
 }
-
 .hero{
   padding:34px 22px 26px;
-  background:linear-gradient(135deg,#ffe6ee,#fff7f9
+  background:linear-gradient(135deg,#ffe6ee,#fff7f9);
 }
-
-.hero-card{
-  max-width:860px;
+.hero-card,.panel{
+  max-width:900px;
   margin:auto;
   background:#fff;
   border-radius:28px;
   padding:28px;
   box-shadow:0 12px 32px rgba(210,120,150,.16);
 }
-
 .label{
   display:inline-block;
   background:#fff0f4;
@@ -36,43 +33,74 @@ body{
   font-size:13px;
   font-weight:700;
 }
-
-h1{
-  margin:16px 0 10px;
-  font-size:30px;
-}
-
-.hero p{
-  color:#7b626b;
-  line-height:1.8;
-  font-size:15px;
-}
-
+h1{margin:16px 0 10px;font-size:30px;}
+h2{font-size:21px;margin:0 0 16px;}
+p{color:#7b626b;line-height:1.8;font-size:15px;}
 .container{
-  max-width:860px;
+  max-width:900px;
   margin:auto;
   padding:28px 18px 60px;
 }
-
-.form-card{
+.task-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.task-btn{
+  border:none;
+  border-radius:20px;
+  background:#fff;
+  border:1px solid #ffe0ea;
+  box-shadow:0 8px 20px rgba(210,130,150,.10);
+  padding:18px;
+  text-align:left;
+  cursor:pointer;
+  font-family:inherit;
+}
+.task-btn:hover,.task-btn.active{
+  background:#fff0f4;
+  border-color:#df8aa3;
+}
+.task-title{
+  font-weight:800;
+  color:#3f3034;
+  margin-bottom:6px;
+  line-height:1.5;
+}
+.task-level{
+  display:inline-block;
+  background:#ffe5ee;
+  color:#b95776;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:12px;
+  font-weight:700;
+}
+.verify-card{
+  margin-top:22px;
   background:#fff;
   border-radius:28px;
   padding:24px;
   box-shadow:0 10px 24px rgba(210,130,150,.12);
   border:1px solid #ffe4ec;
+  display:none;
 }
-
-.field{
+.verify-box{
+  background:#fff7f9;
+  border:1px solid #ffe0ea;
+  border-radius:20px;
+  padding:18px;
+  line-height:1.8;
+  color:#6f5a62;
   margin-bottom:20px;
 }
-
+.verify-box b{color:#b95776;}
+.field{margin-bottom:18px;}
 label{
   display:block;
   font-weight:700;
   margin-bottom:9px;
-  color:#4a383e;
 }
-
 input,select,textarea{
   width:100%;
   box-sizing:border-box;
@@ -84,57 +112,19 @@ input,select,textarea{
   outline:none;
   font-family:inherit;
 }
-
 textarea{
-  min-height:120px;
+  min-height:110px;
   resize:vertical;
 }
-
-input:focus,select:focus,textarea:focus{
-  border-color:#d97898;
-  box-shadow:0 0 0 3px rgba(217,120,152,.12);
-}
-
 .upload{
   border:1.5px dashed #efb8c6;
   background:#fffafd;
   border-radius:18px;
-  padding:26px 18px;
+  padding:24px 18px;
   text-align:center;
   color:#8b7278;
 }
-
-.upload input{
-  border:none;
-  padding:0;
-  margin-top:14px;
-}
-
-.note{
-  font-size:13px;
-  color:#9a7f86;
-  line-height:1.6;
-}
-
-.checklist{
-  background:#fff7f9;
-  border-radius:18px;
-  padding:16px;
-  margin-bottom:20px;
-}
-
-.checklist-title{
-  font-weight:700;
-  color:#b95776;
-  margin-bottom:10px;
-}
-
-.check-item{
-  font-size:14px;
-  line-height:1.8;
-}
-
-button{
+.submit{
   width:100%;
   border:none;
   border-radius:18px;
@@ -145,10 +135,9 @@ button{
   font-weight:700;
   cursor:pointer;
 }
-
 .result{
   display:none;
-  margin-top:22px;
+  margin-top:20px;
   background:#fff0f4;
   border:1px solid #f3c5d0;
   color:#9d5168;
@@ -157,12 +146,18 @@ button{
   line-height:1.7;
   font-weight:700;
 }
-
+.sub-course{
+  display:none;
+}
 .footer{
   text-align:center;
   margin-top:30px;
   font-size:13px;
   color:#8a737a;
+}
+@media(max-width:720px){
+  .task-grid{grid-template-columns:1fr;}
+  h1{font-size:26px;}
 }
 </style>
 </head>
@@ -172,24 +167,86 @@ button{
 <section class="hero">
   <div class="hero-card">
     <span class="label">Task Verification</span>
-    <h1>回報任務</h1>
+    <h1>任務回報驗證</h1>
     <p>
-      完成青年任務後，請在此提交任務成果。系統將依據上傳資料進行審核，
-      審核通過後會更新任務進度、Beta Points 與青年卡解鎖狀態。
+      請先選擇你要回報的任務，系統會依照不同任務顯示對應的驗證方式。
+      送出後將進入審核流程，審核通過後更新任務進度與青年卡資格。
     </p>
   </div>
 </section>
 
 <main class="container">
 
-<div class="form-card">
+<div class="panel">
+  <h2>請選擇回報任務</h2>
 
-  <div class="checklist">
-    <div class="checklist-title">送出前請確認</div>
-    <div class="check-item">✓ 已完成任務指定內容</div>
-    <div class="check-item">✓ 已準備照片、截圖、文件或證明</div>
-    <div class="check-item">✓ 心得內容可說明你實際參與的過程</div>
+  <div class="task-grid">
+    <button class="task-btn" onclick="selectTask('referral', this)">
+      <div class="task-title">利益生成者｜影響力擴散任務</div>
+      <span class="task-level">基礎</span>
+    </button>
+
+    <button class="task-btn" onclick="selectTask('vote', this)">
+      <div class="task-title">議程設定者｜公共參與任務</div>
+      <span class="task-level">基礎</span>
+    </button>
+
+    <button class="task-btn" onclick="selectTask('risk', this)">
+      <div class="task-title">風險判讀者｜辨識風險與詐騙防治</div>
+      <span class="task-level">中階</span>
+    </button>
+
+    <button class="task-btn" onclick="selectTask('sport', this)">
+      <div class="task-title">自律養成者｜挑戰自我極限</div>
+      <span class="task-level">中階</span>
+    </button>
+
+    <button class="task-btn" onclick="selectTask('volunteer', this)">
+      <div class="task-title">利他熱情者｜社會參與任務</div>
+      <span class="task-level">中階</span>
+    </button>
+
+    <button class="task-btn" onclick="selectTask('cpr', this)">
+      <div class="task-title">急救守護者｜基礎救護任務</div>
+      <span class="task-level">中階</span>
+    </button>
+
+    <button class="task-btn" onclick="selectTask('reading', this)">
+      <div class="task-title">知識累積者｜閱讀養成任務</div>
+      <span class="task-level">中階</span>
+    </button>
+
+    <button class="task-btn" onclick="selectTask('culture', this)">
+      <div class="task-title">文化體驗者｜文化參與任務</div>
+      <span class="task-level">困難</span>
+    </button>
+
+    <button class="task-btn" onclick="selectTask('growth', this)">
+      <div class="task-title">自我成長者｜能力提升任務</div>
+      <span class="task-level">困難</span>
+    </button>
   </div>
+</div>
+
+<div id="verifyCard" class="verify-card">
+
+  <h2 id="selectedTitle">任務驗證</h2>
+
+  <div id="verifyBox" class="verify-box"></div>
+
+  <div id="subCourseBox" class="field sub-course">
+    <label>選擇能力提升課程</label>
+    <select id="subCourse" onchange="changeSubCourse()">
+      <option value="">請選擇課程</option>
+      <option value="career">職場與軟實力</option>
+      <option value="finance">財務素養與生活管理</option>
+      <option value="mental">心理與自我成長</option>
+      <option value="speech">名人演講與拓展視野</option>
+      <option value="digital">數位與跨域技能</option>
+    </select>
+  </div>
+
+  <div id="subVerifyBox" class="verify-box sub-course"></div>
 
   <div class="field">
     <label>姓名／暱稱</label>
@@ -202,22 +259,6 @@ button{
   </div>
 
   <div class="field">
-    <label>選擇回報任務</label>
-    <select>
-      <option>請選擇任務</option>
-      <option>利益生成者｜影響力擴散任務</option>
-      <option>議程設定者｜公共參與任務</option>
-      <option>風險判讀者｜辨識風險與詐騙防治</option>
-      <option>自律養成者｜挑戰自我極限</option>
-      <option>利他熱情者｜社會參與任務</option>
-      <option>急救守護者｜基礎救護任務</option>
-      <option>知識累積者｜閱讀養成任務</option>
-      <option>文化體驗者｜文化參與任務</option>
-      <option>自我成長者｜能力提升任務</option>
-    </select>
-  </div>
-
-  <div class="field">
     <label>任務完成日期</label>
     <input type="date">
   </div>
@@ -225,9 +266,9 @@ button{
   <div class="field">
     <label>上傳完成證明</label>
     <div class="upload">
-      <div>可上傳照片、截圖、證明文件或參與紀錄</div>
+      可上傳照片、截圖、證明文件、參與紀錄或 QR Code 畫面
+      <br><br>
       <input type="file" accept="image/*,.pdf" multiple>
-      <div class="note">支援 JPG、PNG、PDF，可一次上傳多個檔案。</div>
     </div>
   </div>
 
@@ -241,12 +282,7 @@ button{
     <textarea placeholder="請簡短說明你完成了什麼、學到什麼，以及這次任務對你的幫助。"></textarea>
   </div>
 
-  <div class="field">
-    <label>補充說明</label>
-    <textarea placeholder="如有其他想補充的資料，可填寫在這裡。"></textarea>
-  </div>
-
-  <button onclick="submitTask()">送出任務回報</button>
+  <button class="submit" onclick="submitTask()">送出任務回報</button>
 
   <div id="result" class="result">
     任務回報已送出。系統將進入審核流程，審核通過後會更新你的任務進度與青年卡資格。
@@ -261,12 +297,177 @@ Beta 青年卡｜任務回報 × 成果驗證 × 成長累積
 </main>
 
 <script>
+const verifyMethods = {
+  referral: {
+    title: "利益生成者｜影響力擴散任務",
+    text: `
+      <b>驗證方式｜社交連結驗證</b><br>
+      系統會確認你是否成功邀請 1 位青年完成有效註冊。<br><br>
+      需驗證：<br>
+      ・你的邀請碼或邀請連結<br>
+      ・被邀請者是否完成有效註冊<br>
+      ・是否為新註冊者且非重複帳號<br>
+      ・系統是否成功產生 1 筆有效推薦紀錄
+    `
+  },
+  vote: {
+    title: "議程設定者｜公共參與任務",
+    text: `
+      <b>驗證方式｜公共參與證明</b><br>
+      參與一次公投或公共議題活動後，上傳相關證明與心得。<br><br>
+      可上傳：<br>
+      ・參與紀錄截圖<br>
+      ・現場照片<br>
+      ・活動資訊頁面<br>
+      ・簡短心得
+    `
+  },
+  risk: {
+    title: "風險判讀者｜辨識風險與詐騙防治",
+    text: `
+      <b>驗證方式｜講座簽到與心得</b><br>
+      完成警政署或校園防詐講座後，上傳簽到紀錄與心得。<br><br>
+      需上傳：<br>
+      ・講座簽到證明<br>
+      ・活動照片或截圖<br>
+      ・50～100 字心得
+    `
+  },
+  sport: {
+    title: "自律養成者｜挑戰自我極限",
+    text: `
+      <b>驗證方式｜運動活動參與證明</b><br>
+      參加公益路跑、馬拉松或相關運動活動。<br><br>
+      可上傳：<br>
+      ・報名成功截圖<br>
+      ・完賽證明<br>
+      ・活動現場照片<br>
+      ・心得
+    `
+  },
+  volunteer: {
+    title: "利他熱情者｜社會參與任務",
+    text: `
+      <b>驗證方式｜志工服務證明</b><br>
+      參與志工服務累積 8 小時，或參與社區／公益相關活動。<br><br>
+      可上傳：<br>
+      ・志工服務時數證明<br>
+      ・活動參與證明<br>
+      ・主辦單位紀錄<br>
+      ・心得
+    `
+  },
+  cpr: {
+    title: "急救守護者｜基礎救護任務",
+    text: `
+      <b>驗證方式｜急救課程證明</b><br>
+      完成 AED／CPR 基礎急救課程，並取得簡易參與證明或基礎認證。<br><br>
+      需上傳：<br>
+      ・課程參與證明<br>
+      ・基礎認證截圖<br>
+      ・現場照片或簽到紀錄
+    `
+  },
+  reading: {
+    title: "知識累積者｜閱讀養成任務",
+    text: `
+      <b>驗證方式｜閱讀紀錄與心得</b><br>
+      完成圖書館借閱累積 3 次，或參與一次讀書分享會／閱讀講座。<br><br>
+      可上傳：<br>
+      ・借閱紀錄截圖<br>
+      ・講座參與證明<br>
+      ・簡短閱讀心得
+    `
+  },
+  culture: {
+    title: "文化體驗者｜文化參與任務",
+    text: `
+      <b>驗證方式｜文化活動參與證明</b><br>
+      參與 2 場文化活動，例如展覽、表演或文化場館。<br><br>
+      可上傳：<br>
+      ・票券截圖<br>
+      ・場館照片<br>
+      ・活動資訊頁<br>
+      ・兩場活動的簡短心得
+    `
+  },
+  growth: {
+    title: "自我成長者｜能力提升任務",
+    text: `
+      <b>請先選擇一項能力提升課程</b><br>
+      自我成長者任務包含 5 類課程，請依實際參與內容選擇對應課程後，再上傳證明。
+    `
+  }
+};
+
+const subMethods = {
+  career: `
+    <b>職場與軟實力｜驗證方式</b><br>
+    需完成職涯、溝通、面試、團隊合作或問題解決相關課程。<br><br>
+    可上傳：課程參與證明、活動照片、課程心得。
+  `,
+  finance: `
+    <b>財務素養與生活管理｜驗證方式</b><br>
+    需完成理財、記帳、保險、生活管理或金融防詐相關課程。<br><br>
+    可上傳：課程證明、活動截圖、學習心得。
+  `,
+  mental: `
+    <b>心理與自我成長｜驗證方式</b><br>
+    需完成心理調適、自我探索、壓力管理或情緒照顧相關課程。<br><br>
+    可上傳：課程參與證明、心得紀錄、自我探索成果。
+  `,
+  speech: `
+    <b>名人演講與拓展視野｜驗證方式</b><br>
+    需參與多元領域專家、產業人士或實務經驗分享活動。<br><br>
+    可上傳：講座照片、報名紀錄、演講心得。
+  `,
+  digital: `
+    <b>數位與跨域技能｜驗證方式</b><br>
+    需完成 AI、數位工具、程式、設計、資料分析或跨域技能相關課程。<br><br>
+    可上傳：課程證明、作品連結、GitHub、成果截圖。
+  `
+};
+
+function selectTask(taskKey, button){
+  document.querySelectorAll(".task-btn").forEach(btn=>{
+    btn.classList.remove("active");
+  });
+  button.classList.add("active");
+
+  document.getElementById("verifyCard").style.display = "block";
+  document.getElementById("selectedTitle").innerText = verifyMethods[taskKey].title;
+  document.getElementById("verifyBox").innerHTML = verifyMethods[taskKey].text;
+
+  document.getElementById("result").style.display = "none";
+
+  if(taskKey === "growth"){
+    document.getElementById("subCourseBox").style.display = "block";
+    document.getElementById("subVerifyBox").style.display = "block";
+    document.getElementById("subVerifyBox").innerHTML = "請選擇課程後，這裡會顯示該課程的驗證方式。";
+  }else{
+    document.getElementById("subCourseBox").style.display = "none";
+    document.getElementById("subVerifyBox").style.display = "none";
+  }
+
+  document.getElementById("verifyCard").scrollIntoView({
+    behavior:"smooth"
+  });
+}
+
+function changeSubCourse(){
+  const course = document.getElementById("subCourse").value;
+  const box = document.getElementById("subVerifyBox");
+
+  if(!course){
+    box.innerHTML = "請選擇課程後，這裡會顯示該課程的驗證方式。";
+    return;
+  }
+
+  box.innerHTML = subMethods[course];
+}
+
 function submitTask(){
   document.getElementById("result").style.display = "block";
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: "smooth"
-  });
 }
 </script>
 
