@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>預備青年卡</title>
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", Arial, sans-serif;
+      background: #fff7f8;
+      color: #4a2c35;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #ffd6df, #fff1f4);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(220, 120, 150, 0.18);
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #7a5a63;
+    }
+
+    .profile {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .profile img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .level {
+      background: #fff;
+      border-radius: 16px;
+      padding: 12px;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .menu {
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 18px 12px;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(210, 140, 160, 0.15);
+      cursor: pointer;
+    }
+
+    .menu-icon {
+      width: 48px;
+      height: 48px;
+      background: #ffe2e8;
+      border-radius: 50%;
+      margin: 0 auto 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .menu-title {
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .section {
+      display: none;
+      background: #fff;
+      border-radius: 22px;
+      padding: 18px;
+      margin-top: 18px;
+      box-shadow: 0 6px 18px rgba(210, 140, 160, 0.12);
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    .task {
+      border: 1px solid #f3c6d0;
+      border-radius: 18px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background: #fffafb;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #ffe2e8;
+      color: #b04f69;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #f0c4cf;
+      border-radius: 14px;
+      padding: 12px;
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 16px;
+      padding: 14px;
+      background: #e88aa2;
+      color: white;
+      font-weight: 700;
+      font-size: 15px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #8a6b73;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="card">
+      <div class="title">預備青年卡</div>
+      <div class="subtitle">完成任務・累積點數・解鎖你的青年成長履歷</div>
+
+      <div class="profile">
+        <img id="avatar" />
+        <div>
+          <div id="userName">載入中...</div>
+          <div class="small">Lv.1 新手探索者｜Beta Points：0</div>
+        </div>
+      </div>
+
+      <div class="level">
+        正式青年卡解鎖條件：完成 5 項任務
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="menu" onclick="showSection('register')">
+        <div class="menu-icon">＋</div>
+        <div class="menu-title">我要註冊</div>
+      </div>
+
+      <div class="menu" onclick="showSection('tasks')">
+        <div class="menu-icon">✓</div>
+        <div class="menu-title">任務列表</div>
+      </div>
+
+      <div class="menu" onclick="showSection('submit')">
+        <div class="menu-icon">↑</div>
+        <div class="menu-title">回報任務</div>
+      </div>
+
+      <div class="menu" onclick="showSection('progress')">
+        <div class="menu-icon">％</div>
+        <div class="menu-title">我的進度</div>
+      </div>
+
+      <div class="menu" onclick="showSection('card')">
+        <div class="menu-icon">★</div>
+        <div class="menu-title">預備青年卡</div>
+      </div>
+
+      <div class="menu" onclick="showSection('events')">
+        <div class="menu-icon">i</div>
+        <div class="menu-title">活動資訊</div>
+      </div>
+    </div>
+
+    <div id="register" class="section active">
+      <h3>我要註冊</h3>
+      <input placeholder="姓名／暱稱" />
+      <input placeholder="學校／身分" />
+      <input placeholder="Email" />
+      <input placeholder="手機" />
+      <select>
+        <option>請選擇感興趣的任務類型</option>
+        <option>城市探索</option>
+        <option>公共參與</option>
+        <option>風險判讀</option>
+        <option>創意表達</option>
+      </select>
+      <button onclick="alert('註冊完成，已建立你的預備青年卡')">送出註冊</button>
+    </div>
+
+    <div id="tasks" class="section">
+      <h3>13 項青年任務</h3>
+
+      <div class="task">
+        <span class="tag">基礎</span>
+        <b>利益生成者｜影響力擴散任務</b>
+        <p class="small">邀請至少 1 位同儕註冊青年卡，分享青年卡制度並完成一次參與。</p>
+      </div>
+
+      <div class="task">
+        <span class="tag">基礎</span>
+        <b>議程設定者｜公共參與任務</b>
+        <p class="small">參與一次公投，理解自身在制度中的影響力。</p>
+      </div>
+
+      <div class="task">
+        <span class="tag">中階</span>
+        <b>風險判讀者｜辨識風險與詐騙防治</b>
+        <p class="small">警政署校園講座簽到，並完成心得上傳。</p>
+      </div>
+
+      <div class="task">
+        <span class="tag">待補</span>
+        <b>任務 4～13</b>
+        <p class="small">這邊之後可以繼續補上剩下 10 項任務。</p>
+      </div>
+    </div>
+
+    <div id="submit" class="section">
+      <h3>回報任務</h3>
+      <select>
+        <option>請選擇已完成任務</option>
+        <option>利益生成者｜影響力擴散任務</option>
+        <option>議程設定者｜公共參與任務</option>
+        <option>風險判讀者｜辨識風險與詐騙防治</option>
+      </select>
+      <input type="file" />
+      <textarea rows="5" placeholder="請填寫 50～100 字心得"></textarea>
+      <input placeholder="作品連結，可不填" />
+      <button onclick="alert('已送出審核')">送出回報</button>
+    </div>
+
+    <div id="progress" class="section">
+      <h3>我的進度</h3>
+      <p>已完成任務：0 / 13</p>
+      <p>審核中任務：0</p>
+      <p>累積 Beta Points：0</p>
+      <div class="level">目前進度：尚未開始</div>
+    </div>
+
+    <div id="card" class="section">
+      <h3>預備青年卡</h3>
+      <p>稱號：Lv.1 新手探索者</p>
+      <p>已解鎖徽章：尚未解鎖</p>
+      <p>正式青年卡條件：完成 5 項任務</p>
+    </div>
+
+    <div id="events" class="section">
+      <h3>活動資訊</h3>
+      <div class="task">
+        <b>青年公共參與講座</b>
+        <p class="small">日期：待公告<br>地點：台北市<br>可對應任務：公共參與任務</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const LIFF_ID = "請換成你的LIFF ID";
+
+    async function main() {
+      try {
+        await liff.init({ liffId: LIFF_ID });
+
+        if (!liff.isLoggedIn()) {
+          liff.login();
+          return;
+        }
+
+        const profile = await liff.getProfile();
+
+        document.getElementById("userName").innerText = profile.displayName;
+        document.getElementById("avatar").src = profile.pictureUrl;
+
+      } catch (error) {
+        console.error(error);
+        document.getElementById("userName").innerText = "青年卡使用者";
+      }
+    }
+
+    function showSection(id) {
+      document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+      });
+      document.getElementById(id).classList.add("active");
+    }
+
+    main();
+  </script>
+</body>
+</html>
