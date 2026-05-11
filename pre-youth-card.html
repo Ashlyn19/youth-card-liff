@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>預備青年卡</title>
+
+<style>
+body{
+  margin:0;
+  font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  background:#fff8f9;
+  color:#3f3034;
+}
+.hero{
+  padding:34px 22px 28px;
+  background:linear-gradient(135deg,#ffe6ee,#fff7f9);
+}
+.hero-card,.card{
+  max-width:920px;
+  margin:auto;
+  background:#fff;
+  border-radius:30px;
+  padding:28px;
+  box-shadow:0 12px 32px rgba(210,120,150,.14);
+}
+.label{
+  display:inline-block;
+  background:#fff0f4;
+  color:#c05f7b;
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+}
+h1{
+  margin:16px 0 10px;
+  font-size:32px;
+}
+h2{
+  margin:0 0 16px;
+  color:#b95776;
+  font-size:22px;
+}
+p{
+  color:#7a646c;
+  line-height:1.8;
+}
+.container{
+  max-width:920px;
+  margin:auto;
+  padding:26px 18px 60px;
+}
+.progress-box{
+  background:#fff7f9;
+  border:1px solid #ffe0ea;
+  border-radius:24px;
+  padding:22px;
+  margin-top:20px;
+}
+.progress{
+  height:14px;
+  background:#f4d7e0;
+  border-radius:999px;
+  overflow:hidden;
+  margin:14px 0;
+}
+.progress-fill{
+  width:42%;
+  height:100%;
+  background:linear-gradient(90deg,#df8aa3,#c96584);
+}
+.status{
+  font-size:15px;
+  color:#8a5f6f;
+  line-height:1.8;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  margin-top:22px;
+}
+.module{
+  background:#fff;
+  border:1px solid #ffe0ea;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 8px 20px rgba(210,130,150,.10);
+}
+.icon{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  background:#ffe8ef;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  margin-bottom:14px;
+}
+.module-title{
+  font-weight:800;
+  font-size:18px;
+  margin-bottom:8px;
+}
+.module-text{
+  color:#7a646c;
+  font-size:14px;
+  line-height:1.7;
+}
+.list{
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
+.item{
+  background:#fff7f9;
+  border-radius:16px;
+  padding:12px 14px;
+  font-size:14px;
+  line-height:1.6;
+}
+.item b{
+  color:#b95776;
+}
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+.badge{
+  background:#fff0f4;
+  color:#b95776;
+  border-radius:999px;
+  padding:8px 12px;
+  font-weight:700;
+  font-size:13px;
+}
+.button{
+  margin-top:16px;
+  display:block;
+  text-align:center;
+  background:linear-gradient(135deg,#df8aa3,#c96584);
+  color:#fff;
+  text-decoration:none;
+  padding:14px;
+  border-radius:18px;
+  font-weight:700;
+}
+.footer{
+  text-align:center;
+  margin-top:34px;
+  color:#8a737a;
+  font-size:13px;
+}
+@media(max-width:720px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+  h1{
+    font-size:28px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-card">
+    <span class="label">Pre-Youth Card</span>
+    <h1>預備青年卡</h1>
+    <p>
+      這裡是正式青年卡前的成年準備入口。
+      透過生活生存、打工職涯、防詐風險與自我探索，
+      幫助你完成進入社會前的基礎準備。
+    </p>
+
+    <div class="progress-box">
+      <h2>成年準備進度</h2>
+      <div class="progress">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="status">
+        目前進度：42%<br>
+        已完成：防詐騙教育、基礎履歷建立、打工權益學習<br>
+        下一步推薦：租屋安全指南、基礎財務管理<br>
+        距離正式青年卡：還差 3 項任務
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+
+<div class="card">
+  <h2>四大成年準備入口</h2>
+
+  <div class="grid">
+
+    <div class="module">
+      <div class="icon">⌂</div>
+      <div class="module-title">租屋與生活生存</div>
+      <div class="module-text">
+        第一次自己生活，需要知道租屋、交通與基本生活工具。
+      </div>
+      <div class="list">
+        <div class="item"><b>租屋安全：</b>看房 checklist、租約陷阱、租屋防詐。</div>
+        <div class="item"><b>生活工具：</b>TPASS、YouBike、水電網路申辦。</div>
+      </div>
+      <a class="button" href="https://rent-allowance.udd.gov.taipei/" target="_blank">查看租屋資源</a>
+    </div>
+
+    <div class="module">
+      <div class="icon">▣</div>
+      <div class="module-title">打工與社會新鮮人</div>
+      <div class="module-text">
+        第一次打工或實習前，先了解基本權益與職涯準備。
+      </div>
+      <div class="list">
+        <div class="item"><b>打工權益：</b>基本工資、勞健保、排班與面試陷阱。</div>
+        <div class="item"><b>職涯準備：</b>履歷模板、模擬面試、職涯探索。</div>
+      </div>
+      <a class="button" href="https://ys.wda.gov.tw/" target="_blank">查看職涯資源</a>
+    </div>
+
+    <div class="module">
+      <div class="icon">!</div>
+      <div class="module-title">防詐與風險教育</div>
+      <div class="module-text">
+        第一次面對社會風險，先學會辨識詐騙與保護自己。
+      </div>
+      <div class="list">
+        <div class="item"><b>常見風險：</b>租屋詐騙、求職詐騙、投資詐騙。</div>
+        <div class="item"><b>防詐任務：</b>完成講座、掃碼簽到、上傳心得。</div>
+      </div>
+      <a class="button" href="task-update.html">前往防詐任務</a>
+    </div>
+
+    <div class="module">
+      <div class="icon">◇</div>
+      <div class="module-title">自我探索與未來方向</div>
+      <div class="module-text">
+        第一次思考未來，不急著選答案，先認識自己。
+      </div>
+      <div class="list">
+        <div class="item"><b>探索工具：</b>人格測驗、能力雷達圖、職涯興趣分析。</div>
+        <div class="item"><b>推薦方向：</b>依測驗結果推薦任務與成長路線。</div>
+      </div>
+      <a class="button" href="#">開始青年探索測驗</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="card" style="margin-top:22px;">
+  <h2>正式青年卡解鎖區</h2>
+  <p>
+    預備青年卡的目標不是提供大量福利，而是協助你累積進入正式青年卡所需的基礎能力。
+  </p>
+
+  <div class="badges">
+    <div class="badge">目前完成 3 / 6</div>
+    <div class="badge">防詐風險判讀</div>
+    <div class="badge">基礎職涯準備</div>
+    <div class="badge">打工權益學習</div>
+  </div>
+
+  <div class="list">
+    <div class="item"><b>還差：</b>租屋生活、財務管理、自我探索。</div>
+    <div class="item"><b>解鎖後：</b>正式青年卡福利、城市探索資格、限定活動與青年成長履歷。</div>
+  </div>
+</div>
+
+<div class="footer">
+Beta 青年卡｜成年準備 × 新手村 × 正式青年卡解鎖
+</div>
+
+</main>
+
+</body>
+</html>
