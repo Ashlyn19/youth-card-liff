@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的進度</title>
+
+<style>
+body{
+  margin:0;
+  font-family:"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  background:#fff8f9;
+  color:#3f3034;
+}
+.hero{
+  padding:36px 20px 28px;
+  background:linear-gradient(135deg,#ffe7ef,#fff7f9);
+}
+.hero-card,.card{
+  max-width:920px;
+  margin:auto;
+  background:#fff;
+  border-radius:30px;
+  padding:28px;
+  box-shadow:0 12px 32px rgba(210,120,150,.14);
+}
+.label{
+  display:inline-block;
+  background:#fff0f4;
+  color:#c05f7b;
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+}
+h1{
+  margin:16px 0 10px;
+  font-size:32px;
+}
+h2{
+  margin:0 0 18px;
+  color:#b95776;
+  font-size:24px;
+}
+p{
+  color:#7a646c;
+  line-height:1.8;
+}
+.container{
+  max-width:920px;
+  margin:auto;
+  padding:24px 18px 60px;
+}
+.progress{
+  height:16px;
+  background:#f4d7e0;
+  border-radius:999px;
+  overflow:hidden;
+  margin:16px 0;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,#df8aa3,#c96584);
+  transition:.4s;
+}
+.status-text{
+  font-size:16px;
+  color:#8a5f6f;
+  line-height:1.9;
+}
+.grid{
+  display:grid;
+  gap:14px;
+}
+.task{
+  border:1px solid #ffe0ea;
+  border-radius:22px;
+  padding:18px;
+  background:#fff;
+  box-shadow:0 8px 20px rgba(210,130,150,.08);
+}
+.task-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+}
+.task-title{
+  font-weight:800;
+  font-size:17px;
+  line-height:1.5;
+}
+.level{
+  background:#ffe5ee;
+  color:#b95776;
+  border-radius:999px;
+  padding:5px 12px;
+  font-size:12px;
+  font-weight:700;
+  white-space:nowrap;
+}
+.desc{
+  margin-top:10px;
+  color:#7a646c;
+  line-height:1.7;
+  font-size:14px;
+}
+.tag{
+  display:inline-block;
+  margin-top:12px;
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:13px;
+  font-weight:700;
+}
+.done{
+  background:#fff0f4;
+  color:#b95776;
+}
+.pending{
+  background:#f8f1f3;
+  color:#9a858b;
+}
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:14px;
+}
+.badge{
+  background:#fff0f4;
+  color:#b95776;
+  border-radius:999px;
+  padding:8px 14px;
+  font-size:13px;
+  font-weight:700;
+}
+.button{
+  display:block;
+  text-align:center;
+  text-decoration:none;
+  background:linear-gradient(135deg,#df8aa3,#c96584);
+  color:#fff;
+  padding:15px;
+  border-radius:18px;
+  font-weight:700;
+  margin-top:20px;
+}
+.footer{
+  text-align:center;
+  margin-top:34px;
+  color:#8a737a;
+  font-size:13px;
+}
+@media(max-width:720px){
+  h1{font-size:28px;}
+  .task-top{flex-direction:column;}
+}
+</style>
+</head>
+
+<body>
+
+<section class="hero">
+  <div class="hero-card">
+    <span class="label">My Progress</span>
+    <h1>我的進度</h1>
+    <p>
+      這裡會依照任務回報狀況，顯示目前完成進度、已取得能力與試辦青年卡解鎖狀態。
+    </p>
+
+    <div class="progress">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="status-text" id="progressText">
+      載入中...
+    </div>
+
+    <div class="badges" id="badgeArea"></div>
+
+    <a class="button" href="task-update.html">前往回報任務</a>
+  </div>
+</section>
+
+<main class="container">
+
+<div class="card">
+  <h2>任務完成狀況</h2>
+  <div class="grid" id="taskList"></div>
+</div>
+
+<div class="card" style="margin-top:22px;">
+  <h2>試辦青年卡解鎖條件</h2>
+  <p>
+    完成六項任務後，即可解鎖試辦青年卡資格。
+  </p>
+  <div id="unlockStatus" class="status-text"></div>
+</div>
+
+<div class="footer">
+Beta 青年卡｜我的進度 × 任務累積 × 試辦青年卡解鎖
+</div>
+
+</main>
+
+<script>
+const tasks = [
+  {
+    key:"referral",
+    title:"利益生成者｜影響力擴散任務",
+    level:"基礎",
+    ability:"社交擴散、資訊傳遞、公共資源推廣"
+  },
+  {
+    key:"risk",
+    title:"風險判讀者｜辨識風險與詐騙防治",
+    level:"中階",
+    ability:"風險判讀、防詐意識、安全準備"
+  },
+  {
+    key:"volunteer",
+    title:"利他熱情者｜社會參與任務",
+    level:"中階",
+    ability:"社會責任、公共服務、社區連結"
+  },
+  {
+    key:"culture",
+    title:"文化體驗者｜文化參與任務",
+    level:"困難",
+    ability:"文化探索、城市理解、多元感知"
+  },
+  {
+    key:"career",
+    title:"自我成長者｜職場與軟實力",
+    level:"困難",
+    ability:"溝通表達、團隊合作、問題解決"
+  },
+  {
+    key:"finance",
+    title:"自我成長者｜財務素養與生活管理",
+    level:"困難",
+    ability:"財務觀念、資源配置、風險控管"
+  },
+  {
+    key:"mental",
+    title:"自我成長者｜心理與自我成長",
+    level:"困難",
+    ability:"自我覺察、壓力調適、心理韌性"
+  },
+  {
+    key:"speech",
+    title:"自我成長者｜名人演講與拓展視野",
+    level:"困難",
+    ability:"產業認知、視野拓展、未來規劃"
+  },
+  {
+    key:"digital",
+    title:"自我成長者｜數位與跨域技能",
+    level:"困難",
+    ability:"數位應用、跨域整合、創新思維"
+  }
+];
+
+function getCompletedTasks(){
+  return JSON.parse(localStorage.getItem("completedTasks") || "[]");
+}
+
+function renderProgress(){
+  const completed = getCompletedTasks();
+  const completedCount = completed.length;
+  const required = 6;
+  const percent = Math.min((completedCount / required) * 100, 100);
+
+  document.getElementById("progressFill").style.width = percent + "%";
+
+  document.getElementById("progressText").innerHTML =
+    "目前完成：" + completedCount + " / " + required + " 項任務<br>" +
+    "試辦青年卡解鎖條件：完成六項任務";
+
+  const taskList = document.getElementById("taskList");
+  taskList.innerHTML = "";
+
+  const badgeArea = document.getElementById("badgeArea");
+  badgeArea.innerHTML = "";
+
+  tasks.forEach(task=>{
+    const isDone = completed.includes(task.key);
+
+    const div = document.createElement("div");
+    div.className = "task";
+
+    div.innerHTML = `
+      <div class="task-top">
+        <div class="task-title">${task.title}</div>
+        <div class="level">${task.level}</div>
+      </div>
+      <div class="desc">能力標籤：${task.ability}</div>
+      <div class="tag ${isDone ? "done" : "pending"}">
+        ${isDone ? "已完成" : "尚未完成"}
+      </div>
+    `;
+
+    taskList.appendChild(div);
+
+    if(isDone){
+      const badge = document.createElement("div");
+      badge.className = "badge";
+      badge.innerText = task.title.split("｜")[0];
+      badgeArea.appendChild(badge);
+    }
+  });
+
+  const unlockStatus = document.getElementById("unlockStatus");
+
+  if(completedCount >= required){
+    unlockStatus.innerHTML =
+      "已達成解鎖條件。<br>你已完成六項任務，可解鎖試辦青年卡資格。";
+  }else{
+    unlockStatus.innerHTML =
+      "尚未達成解鎖條件。<br>還差 " + (required - completedCount) + " 項任務。";
+  }
+}
+
+renderProgress();
+</script>
+
+</body>
+</html>
