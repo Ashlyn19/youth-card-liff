@@ -205,28 +205,6 @@ input,select{
   margin-bottom:18px;
 }
 
-.success{
-  display:none;
-  margin-top:22px;
-  background:#fff0f4;
-  border:1px solid #f3c5d0;
-  color:#9d5168;
-  border-radius:20px;
-  padding:22px;
-  line-height:1.9;
-}
-
-.badge{
-  display:inline-block;
-  margin-top:14px;
-  background:#fff;
-  border:1px solid #f3c5d0;
-  color:#b95776;
-  padding:10px 16px;
-  border-radius:999px;
-  font-weight:700;
-}
-
 .phone-row,
 .verify-row{
   display:flex;
@@ -254,6 +232,18 @@ input,select{
   margin-top:20px;
   display:flex;
   justify-content:center;
+}
+
+.scan-success{
+  display:none;
+  margin-top:18px;
+  background:#fff0f4;
+  border:1px solid #f3c5d0;
+  color:#b95776;
+  border-radius:18px;
+  padding:16px;
+  text-align:center;
+  font-weight:700;
 }
 
 .footer{
@@ -579,31 +569,6 @@ TYC-U000128
 完成有效註冊
 </button>
 
-<div id="successBox" class="success">
-
-推薦成功 1 / 1<br>
-社交連結任務已完成
-
-<br><br>
-
-推薦人已獲得：
-
-<div class="badge">
-利益生成者 Badge
-</div>
-
-<br><br>
-
-能力標籤：<br>
-社交擴散、資訊傳遞、公共資源推廣
-
-<br><br>
-
-完成日期：
-<span id="today"></span>
-
-</div>
-
 </div>
 
 </div>
@@ -625,7 +590,7 @@ TYC-U000128
 
 <p>
 系統將透過掃碼紀錄確認青年是否完成公共參與，
-並同步更新任務進度與公共參與徽章。
+並同步更新任務進度。
 </p>
 
 </div>
@@ -654,32 +619,11 @@ TYC-U000128
 
 </div>
 
+<div id="scanSuccess" class="scan-success">
+掃描成功，已完成公共參與任務驗證
 </div>
 
 </div>
-
-<div id="voteSuccess" class="success">
-
-公共參與任務驗證成功<br>
-已完成「議程設定者」任務
-
-<br><br>
-
-已獲得：
-
-<div class="badge">
-議程設定者 Badge
-</div>
-
-<br><br>
-
-能力標籤：<br>
-公共參與、制度理解、民主素養
-
-<br><br>
-
-完成日期：
-<span id="voteDate"></span>
 
 </div>
 
@@ -704,10 +648,6 @@ button.classList.add("active");
 document.getElementById("referralTask").style.display = "block";
 document.getElementById("agendaTask").style.display = "none";
 
-document.getElementById("referralTask").scrollIntoView({
-behavior:"smooth"
-});
-
 }
 
 function showAgendaTask(button){
@@ -727,10 +667,6 @@ new QRCode(document.getElementById("voteQR"), {
 text:"https://taipei-vote.tw/checkin/public-task",
 width:180,
 height:180
-});
-
-document.getElementById("agendaTask").scrollIntoView({
-behavior:"smooth"
 });
 
 }
@@ -796,23 +732,9 @@ function completeRegister(){
 const name = document.getElementById("name").value;
 const phone = document.getElementById("phone").value;
 const email = document.getElementById("email").value;
-const birthday = document.getElementById("birthday").value;
-const relation = document.getElementById("relation").value;
-const address = document.getElementById("address").value;
-const school = document.getElementById("school").value;
-const otp = document.getElementById("otp").value;
 
-if(
-!name ||
-!phone ||
-!email ||
-!birthday ||
-!relation ||
-!address ||
-!school ||
-!otp
-){
-alert("請完成所有欄位");
+if(!name || !phone || !email){
+alert("請完成基本資料");
 return;
 }
 
@@ -821,37 +743,13 @@ document.getElementById("progressFill").style.width = "100%";
 document.getElementById("progressText").innerHTML =
 "目前進度：1 / 1";
 
-document.getElementById("successBox").style.display = "block";
-
-const today = new Date();
-
-document.getElementById("today").innerHTML =
-today.getFullYear() + "/" +
-(today.getMonth()+1) + "/" +
-today.getDate();
-
-window.scrollTo({
-top:document.body.scrollHeight,
-behavior:"smooth"
-});
+alert("推薦成功，已完成利益生成者任務");
 
 }
 
 function verifyVoteTask(){
 
-document.getElementById("voteSuccess").style.display = "block";
-
-const today = new Date();
-
-document.getElementById("voteDate").innerHTML =
-today.getFullYear() + "/" +
-(today.getMonth()+1) + "/" +
-today.getDate();
-
-window.scrollTo({
-top:document.body.scrollHeight,
-behavior:"smooth"
-});
+document.getElementById("scanSuccess").style.display = "block";
 
 }
 
