@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>青年任務回報系統</title>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <style>
 
 body{
@@ -108,7 +110,7 @@ p{
   padding:28px;
   box-shadow:0 10px 24px rgba(210,130,150,.12);
   border:1px solid #ffe4ec;
-  display:none;
+  display:block;
 }
 
 .section{
@@ -131,12 +133,6 @@ p{
   font-weight:800;
   color:#b95776;
   margin:12px 0;
-}
-
-.link{
-  font-size:14px;
-  word-break:break-all;
-  color:#7f5d68;
 }
 
 .progress{
@@ -230,6 +226,31 @@ input,select{
   font-weight:700;
 }
 
+.phone-row{
+  display:flex;
+  gap:10px;
+}
+
+.phone-row input{
+  flex:1;
+}
+
+.otp-btn{
+  width:140px;
+  border:none;
+  border-radius:16px;
+  background:#fff0f4;
+  color:#b95776;
+  font-weight:700;
+  cursor:pointer;
+}
+
+#qrcode{
+  margin-top:20px;
+  display:flex;
+  justify-content:center;
+}
+
 .footer{
   text-align:center;
   margin-top:34px;
@@ -242,6 +263,15 @@ input,select{
 .task-grid,
 .button-group{
 grid-template-columns:1fr;
+}
+
+.phone-row{
+flex-direction:column;
+}
+
+.otp-btn{
+width:100%;
+height:50px;
 }
 
 h1{
@@ -286,7 +316,7 @@ Task Verification
 
 <div class="task-grid">
 
-<button class="task-btn active" onclick="showReferralTask(this)">
+<button class="task-btn active">
 <div class="task-title">
 利益生成者｜影響力擴散任務
 </div>
@@ -371,9 +401,7 @@ Task Verification
 
 </div>
 
-<!-- 利益生成者 -->
-
-<div id="referralTask" class="verify-card" style="display:block;">
+<div class="verify-card">
 
 <h2>
 利益生成者｜社交連結任務
@@ -382,11 +410,10 @@ Task Verification
 <div class="section">
 
 <p>
-青年 A 透過青年卡 APP 產生個人邀請碼或邀請連結，
-邀請青年 B 註冊青年卡。
-當 B 完成有效註冊後，
-系統即認定 A 完成社交連結任務，
-並新增 1 筆有效推薦紀錄。
+推薦人透過青年卡 APP 產生個人邀請碼或邀請連結，
+邀請被推薦人註冊青年卡。
+當被推薦人完成有效註冊後，
+系統即認定推薦成功。
 </p>
 
 </div>
@@ -394,7 +421,7 @@ Task Verification
 <div class="section">
 
 <h2>
-青年 A 任務頁面
+推薦人任務頁面
 </h2>
 
 <div class="invite-box">
@@ -415,10 +442,6 @@ Task Verification
 TYC-U000128
 </div>
 
-<div class="link">
-https://youthcard.taipei/register?ref=TYC-U000128
-</div>
-
 <div class="button-group">
 
 <button class="action-btn" onclick="copyCode()">
@@ -435,6 +458,8 @@ https://youthcard.taipei/register?ref=TYC-U000128
 
 </div>
 
+<div id="qrcode"></div>
+
 </div>
 
 </div>
@@ -442,17 +467,12 @@ https://youthcard.taipei/register?ref=TYC-U000128
 <div class="form-card">
 
 <h2>
-青年 B 註冊畫面
+被推薦人註冊畫面
 </h2>
 
 <div class="notice">
 
-你是透過好友邀請加入青年卡<br>
-
-推薦碼：
-<b>
-TYC-U000128
-</b>
+你是透過好友邀請加入青年卡
 
 </div>
 
@@ -464,10 +484,21 @@ TYC-U000128
 </div>
 
 <div class="field">
+
 <label>
 手機號碼
 </label>
+
+<div class="phone-row">
+
 <input id="phone" type="tel">
+
+<button class="otp-btn" onclick="sendOTP()">
+傳送驗證碼
+</button>
+
+</div>
+
 </div>
 
 <div class="field">
@@ -548,7 +579,7 @@ Email
 
 <br><br>
 
-青年 A 已獲得：
+推薦人已獲得：
 
 <div class="badge">
 利益生成者 Badge
@@ -578,22 +609,6 @@ Beta 青年卡｜社交連結 × 有效推薦 × Badge 系統
 
 <script>
 
-function showReferralTask(button){
-
-document.querySelectorAll(".task-btn").forEach(btn=>{
-btn.classList.remove("active");
-});
-
-button.classList.add("active");
-
-document.getElementById("referralTask").style.display = "block";
-
-document.getElementById("referralTask").scrollIntoView({
-behavior:"smooth"
-});
-
-}
-
 function copyCode(){
 
 navigator.clipboard.writeText("TYC-U000128");
@@ -614,7 +629,26 @@ alert("已複製邀請連結");
 
 function generateQR(){
 
-alert("QR Code 已產生（前端展示版）");
+document.getElementById("qrcode").innerHTML = "";
+
+new QRCode(document.getElementById("qrcode"), {
+text:"https://youthcard.taipei/register?ref=TYC-U000128",
+width:180,
+height:180
+});
+
+}
+
+function sendOTP(){
+
+const phone = document.getElementById("phone").value;
+
+if(!phone){
+alert("請先輸入手機號碼");
+return;
+}
+
+alert("驗證碼已傳送至：" + phone);
 
 }
 
