@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>青年任務回報系統</title>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
@@ -77,9 +78,9 @@ h1{font-size:28px}
 </div>
 </div>
 
-<!-- 利益生成者 -->
 <div id="referral" class="verify-card" style="display:block;">
 <h2>利益生成者｜社交連結任務</h2>
+
 <div class="section">
 <p>推薦人透過青年卡 APP 產生邀請碼或邀請連結，邀請被推薦人完成青年卡註冊，即可完成任務。</p>
 </div>
@@ -146,7 +147,6 @@ h1{font-size:28px}
 </div>
 </div>
 
-<!-- 通用任務驗證區 -->
 <div id="genericTask" class="verify-card">
 <h2 id="genericTitle"></h2>
 
@@ -283,106 +283,121 @@ success:"已完成「數位與跨域技能」任務驗證"
 }
 };
 
+function saveTaskProgress(taskKey){
+  let completed = JSON.parse(localStorage.getItem("completedTasks") || "[]");
+
+  if(!completed.includes(taskKey)){
+    completed.push(taskKey);
+  }
+
+  localStorage.setItem("completedTasks", JSON.stringify(completed));
+}
+
 function hideAll(){
-document.getElementById("referral").style.display="none";
-document.getElementById("genericTask").style.display="none";
-document.getElementById("scanSuccess").style.display="none";
-document.getElementById("genericSuccess").style.display="none";
+  document.getElementById("referral").style.display="none";
+  document.getElementById("genericTask").style.display="none";
+  document.getElementById("scanSuccess").style.display="none";
+  document.getElementById("genericSuccess").style.display="none";
 }
 
 function resetButtons(){
-document.querySelectorAll(".task-btn").forEach(btn=>btn.classList.remove("active"));
+  document.querySelectorAll(".task-btn").forEach(btn=>btn.classList.remove("active"));
 }
 
 function showTask(taskKey,btn){
-resetButtons();
-btn.classList.add("active");
-hideAll();
+  resetButtons();
+  btn.classList.add("active");
+  hideAll();
 
-if(taskKey==="referral"){
-document.getElementById("referral").style.display="block";
-return;
-}
+  if(taskKey==="referral"){
+    document.getElementById("referral").style.display="block";
+    return;
+  }
 
-currentTask = taskKey;
-const task = tasks[taskKey];
+  currentTask = taskKey;
+  const task = tasks[taskKey];
 
-document.getElementById("genericTask").style.display="block";
-document.getElementById("genericTitle").innerText=task.title;
-document.getElementById("genericContent").innerText=task.content;
-document.getElementById("genericPurpose").innerText=task.purpose;
-document.getElementById("verifyTitle").innerText=task.verifyTitle;
-document.getElementById("verifyText").innerText=task.verifyText;
-document.getElementById("genericSuccess").innerText=task.success;
+  document.getElementById("genericTask").style.display="block";
+  document.getElementById("genericTitle").innerText=task.title;
+  document.getElementById("genericContent").innerText=task.content;
+  document.getElementById("genericPurpose").innerText=task.purpose;
+  document.getElementById("verifyTitle").innerText=task.verifyTitle;
+  document.getElementById("verifyText").innerText=task.verifyText;
+  document.getElementById("genericSuccess").innerText=task.success;
 
-document.getElementById("genericQR").innerHTML="";
-new QRCode(document.getElementById("genericQR"),{
-text:task.qr,
-width:180,
-height:180
-});
+  document.getElementById("genericQR").innerHTML="";
+  new QRCode(document.getElementById("genericQR"),{
+    text:task.qr,
+    width:180,
+    height:180
+  });
 }
 
 function generateQR(id,text){
-document.getElementById(id).innerHTML="";
-new QRCode(document.getElementById(id),{text:text,width:180,height:180});
+  document.getElementById(id).innerHTML="";
+  new QRCode(document.getElementById(id),{text:text,width:180,height:180});
 }
 
 function copyCode(){
-navigator.clipboard.writeText("TYC-U000128");
-alert("已複製邀請碼：TYC-U000128");
+  navigator.clipboard.writeText("TYC-U000128");
+  alert("已複製邀請碼：TYC-U000128");
 }
 
 function shareLink(){
-navigator.clipboard.writeText("https://youthcard.taipei/register?ref=TYC-U000128");
-alert("已複製邀請連結");
+  navigator.clipboard.writeText("https://youthcard.taipei/register?ref=TYC-U000128");
+  alert("已複製邀請連結");
 }
 
 function sendOTP(){
-const phone=document.getElementById("phone").value;
-if(!phone){alert("請先輸入手機號碼");return;}
-alert("驗證碼已傳送至：" + phone);
+  const phone=document.getElementById("phone").value;
+  if(!phone){alert("請先輸入手機號碼");return;}
+  alert("驗證碼已傳送至：" + phone);
 }
 
 function verifyOTP(){
-const code=document.getElementById("verifyCode").value;
-if(!code){alert("請輸入驗證碼");return;}
-alert("驗證成功");
+  const code=document.getElementById("verifyCode").value;
+  if(!code){alert("請輸入驗證碼");return;}
+  alert("驗證成功");
 }
 
 function completeRegister(){
-const name=document.getElementById("name").value;
-const phone=document.getElementById("phone").value;
-const email=document.getElementById("email").value;
-if(!name || !phone || !email){
-alert("請完成基本資料");
-return;
-}
-document.getElementById("progressFill").style.width="100%";
-document.getElementById("progressText").innerHTML="目前進度：1 / 1";
-document.getElementById("referralSuccess").style.display="block";
+  const name=document.getElementById("name").value;
+  const phone=document.getElementById("phone").value;
+  const email=document.getElementById("email").value;
+
+  if(!name || !phone || !email){
+    alert("請完成基本資料");
+    return;
+  }
+
+  document.getElementById("progressFill").style.width="100%";
+  document.getElementById("progressText").innerHTML="目前進度：1 / 1";
+  document.getElementById("referralSuccess").style.display="block";
+
+  saveTaskProgress("referral");
 }
 
 function scanGenericQR(){
-document.getElementById("scanSuccess").style.display="block";
+  document.getElementById("scanSuccess").style.display="block";
 }
 
 function submitGenericTask(){
-const date=document.getElementById("genericDate").value;
-const essay=document.getElementById("genericEssay").value;
-const task=tasks[currentTask];
+  const date=document.getElementById("genericDate").value;
+  const essay=document.getElementById("genericEssay").value;
+  const task=tasks[currentTask];
 
-if(!date){
-alert("請填寫完成日期");
-return;
-}
+  if(!date){
+    alert("請填寫完成日期");
+    return;
+  }
 
-if(essay.length < task.essayMin){
-alert("心得至少需 " + task.essayMin + " 字");
-return;
-}
+  if(essay.length < task.essayMin){
+    alert("心得至少需 " + task.essayMin + " 字");
+    return;
+  }
 
-document.getElementById("genericSuccess").style.display="block";
+  document.getElementById("genericSuccess").style.display="block";
+  saveTaskProgress(currentTask);
 }
 </script>
 
