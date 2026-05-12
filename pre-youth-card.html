@@ -78,9 +78,10 @@ p{
 }
 
 .progress-fill{
-  width:42%;
+  width:0%;
   height:100%;
   background:linear-gradient(90deg,#df8aa3,#c96584);
+  transition:.4s;
 }
 
 .status{
@@ -192,17 +193,10 @@ Pre-Youth Card
 </h2>
 
 <div class="progress">
-<div class="progress-fill"></div>
+<div class="progress-fill" id="progressFill"></div>
 </div>
 
-<div class="status">
-
-目前進度：42%<br>
-已完成：防詐騙教育、基礎履歷建立、打工權益學習<br>
-下一步推薦：租屋安全指南、基礎財務管理<br>
-距離正式青年卡：還差 0 項任務
-
-</div>
+<div class="status" id="progressStatus"></div>
 
 </div>
 
@@ -264,33 +258,15 @@ Pre-Youth Card
 進一步參與城市探索、青年活動與正式福利系統。
 </p>
 
-<div class="badges">
-
-<div class="badge">
-目前完成 3 / 3
-</div>
-
-<div class="badge">
-風險判讀
-</div>
-
-<div class="badge">
-打工權益
-</div>
-
-<div class="badge">
-基礎履歷
-</div>
-
-</div>
+<div class="badges" id="badgeArea"></div>
 
 <div class="info-box">
 
 <div class="list">
 
 <div class="item">
-<b>目前缺少：</b>
-已達成解鎖條件。
+<b>解鎖條件：</b>
+完成 3 項青年任務。
 </div>
 
 <div class="item">
@@ -313,6 +289,64 @@ Beta 青年卡｜成年準備 × 成長累積 × 正式青年卡解鎖
 </div>
 
 </main>
+
+<script>
+
+const completedTasks =
+JSON.parse(localStorage.getItem("completedTasks") || "[]");
+
+const completedCount = completedTasks.length;
+
+const requiredTasks = 3;
+
+const progressPercent =
+Math.min((completedCount / requiredTasks) * 100, 100);
+
+document.getElementById("progressFill").style.width =
+progressPercent + "%";
+
+let completedText = "尚未完成任務";
+
+if(completedTasks.length > 0){
+
+completedText = completedTasks.join("、");
+
+}
+
+document.getElementById("progressStatus").innerHTML = `
+目前進度：${Math.round(progressPercent)}%<br>
+已完成：${completedText}<br>
+下一步推薦：前往青年任務系統，選擇任務並完成回報<br>
+距離正式青年卡：還差 ${Math.max(requiredTasks - completedCount,0)} 項任務
+`;
+
+const badgeArea = document.getElementById("badgeArea");
+
+const badgeNames = {
+referral:"利益生成者",
+risk:"風險判讀者",
+volunteer:"利他熱情者",
+culture:"文化體驗者",
+career:"職場與軟實力",
+finance:"財務素養",
+mental:"心理與自我成長",
+speech:"名人演講",
+digital:"數位與跨域技能"
+};
+
+completedTasks.forEach(task=>{
+
+const badge = document.createElement("div");
+
+badge.className = "badge";
+
+badge.innerText = badgeNames[task];
+
+badgeArea.appendChild(badge);
+
+});
+
+</script>
 
 </body>
 </html>
